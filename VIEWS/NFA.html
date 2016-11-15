@@ -1,0 +1,41 @@
+<section>
+    <h2><i class="fa fa-rupee fa-3x" aria-hidden="true"></i> NFA</h2>
+    <p>Cargamos lo del NFA</p>
+</section>
+<section>	
+	<canvas id="canvas" width="800" height="600">
+		<span class="error">Su navegador no soporta<br> HTML5 &lt;canvas&gt; element</span>
+	</canvas>
+	<div id ="actionControl">
+		<label for="cadena">Cadena:</label>
+		<form class="form-inline">
+			<div class="form-group">
+			  <input type="text" class="form-control col-xs-3" id="cadena" placeholder="Ingrese la cadena a probar">
+			  <button type="button" class="btn btn-primary" id ="MarginButton" onclick="disableCanvas()">Probar</button>		  
+			</div>
+		</form>
+	</div>
+	<hr>
+	<div>
+		<p class="center">Exportar como : <a href="javascript:saveAsPNG()">PNG</a> | <a href="javascript:saveAsSVG()">SVG</a> | <a href="javascript:saveAsLaTeX()">LaTeX</a></p>
+		<label for="FileName">Nombre del Archivo:</label>
+		<form class="form-inline">		
+			<div class="form-group" id="output">
+			  <input type="text" class="form-control col-xs-3" id="FileName" placeholder="Ingrese nombre del archivo">
+			  <button type="button" class="btn btn-success" id ="MarginButton">Guardar </button>		
+			</div>
+		</form>
+		<hr>		
+		<h2 id ="actionControl">Intrucciones para utilizar el diseñador</h2>
+		<ul>
+			<li><b>Agregar un estado:</b> doble click en el "Canvas-Cuadro Blanco".</li>
+			<li><b>Agregar una flecha:</b> shift-arrastrar en el canvas.</li>
+			<li><b>Mover algo:</b> arrastrarlo simplemente.</li>
+			<li><b>Borrar algo:</b> click en el objeto y apretar la tecla Delete-Suprimir.</li>
+			<li><b>Hacer un estado de aceptación:</b> doble click en un estado existente.</li>
+			<li><b>Escribir un símbolo de transición:</b>poner un guión bajo antes del número(Ejemplo "X_0").</li>
+			<li><b>Tipo letra griega:</b> Poner una barra invertida antes (como "\ Ejemplo").</li>			
+		</ul>
+	</div>
+</section>                                               
+                  
