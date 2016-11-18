@@ -7,24 +7,23 @@
 		<span class="error">Su navegador no soporta<br> HTML5 &lt;canvas&gt; element</span>
 	</canvas>
 	<div id ="actionControl">
+		<center><h3>Acciones</h3></center>
 		<label for="cadena">Cadena:</label>
 		<form class="form-inline">
 			<div class="form-group">
 			  <input type="text" class="form-control col-xs-3" id="cadena" placeholder="Ingrese la cadena a probar">
-			  <button type="button" class="btn btn-primary" id ="MarginButton" onclick="disableCanvas()">Probar</button>		  
+			  <button type="button" class="btn btn-primary btn-md" id ="MarginButton" onclick="disableCanvas()">Probar</button>		  
 			</div>
+			<div class="form-group">
+			  <label>Transformar a DFA</label>
+			  <button type="button" class="btn btn-success btn-md" id ="MarginButton" onclick="NFAtoDFA()">To DFA</button>		  
+			</div>
+			<div class="form-group">
+			  <label>Transformar a Regex</label>
+			  <button type="button" class="btn btn-warning btn-md" id ="MarginButton" onclick="NFAtoRegex()">To Regex</button>		  
+			</div>								
 		</form>
 	</div>
-	<hr>
-	<div>
-		<p class="center">Exportar como : <a href="javascript:saveAsPNG()">PNG</a> | <a href="javascript:saveAsSVG()">SVG</a> | <a href="javascript:saveAsLaTeX()">LaTeX</a></p>
-		<label for="FileName">Nombre del Archivo:</label>
-		<form class="form-inline">		
-			<div class="form-group" id="output">
-			  <input type="text" class="form-control col-xs-3" id="FileName" placeholder="Ingrese nombre del archivo">
-			  <button type="button" class="btn btn-success" id ="MarginButton">Guardar </button>		
-			</div>
-		</form>
 		<hr>		
 		<h2 id ="actionControl">Intrucciones para utilizar el diseñador</h2>
 		<ul>
