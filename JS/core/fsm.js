@@ -332,7 +332,7 @@ function crossBrowserKey(e) {
 	return e.which || e.keyCode;
 }
 
-function crossBrowserElementPos(e) {
+/*function crossBrowserElementPos(e) {
 	e = e || window.event;
 	var obj = e.target || e.srcElement;
 	var x = 0, y = 0;
@@ -342,7 +342,7 @@ function crossBrowserElementPos(e) {
 		obj = obj.offsetParent;
 	}
 	return { 'x': x, 'y': y };
-}
+}*/
 
 function crossBrowserMousePos(e) {
 	e = e || window.event;
@@ -353,11 +353,11 @@ function crossBrowserMousePos(e) {
 }
 
 function crossBrowserRelativeMousePos(e) {
-	var element = crossBrowserElementPos(e);
+	//var element = crossBrowserElementPos(e);
 	var mouse = crossBrowserMousePos(e);
 	return {
-		'x': mouse.x - element.x,
-		'y': mouse.y - element.y
+		'x': mouse.x - $('#canvas').offset().left,
+		'y': mouse.y - $('#canvas').offset().top
 	};
 }
 
