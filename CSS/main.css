@@ -169,11 +169,13 @@ canvas {
 
   padding-top: 3%;
   padding-bottom: 3%;
+  margin-left: 0 auto;
+  margin-right: 0 auto;
 
 }
 
 #MarginButton{
 
-  padding-left: 4%;
+  padding: 4%;
 }
 
