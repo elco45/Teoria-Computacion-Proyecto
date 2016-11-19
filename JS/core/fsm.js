@@ -192,10 +192,10 @@ function startCanvas() {
 			return false;
 		} else {
 			// otherwise, let the browser switch the focus away from wherever it was
-			resetCaret();
+			//resetCaret();
+			$("#canvas").focus();
 			return true;
 		}
-		$("#canvas").focus();
 	};
 
 	canvas.ondblclick = function(e) {
