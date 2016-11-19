@@ -397,3 +397,32 @@ function saveAsLaTeX() {
 	var texData = exporter.toLaTeX();
 	output(texData);
 }
+
+function getNodes(){
+	return nodes;
+}
+
+function getLinks(){
+	return links;
+}
+
+function createTransition(){
+	var transitions = new Array;
+	for(var i = 0; i < nodes.length; i++){
+		transitions.push({
+			'node': nodes[i],
+			'links': new Array
+		})
+	}
+	for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < links.length; j++){
+			if(transitions[i].node === links[j].nodeA){
+				transitions[i].links.push({
+					'symbol': links[j].text,
+					'node': links[j].nodeB
+				})
+			}
+		}
+	}
+	return transitions
+}
