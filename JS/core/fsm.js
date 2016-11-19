@@ -1,4 +1,7 @@
 var greekLetterNames = [ 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega' ];
+var transitions = [];
+var initialNode;
+var finalNodes = [];
 
 function convertLatexShortcuts(text) {
 	// html greek characters
@@ -203,12 +206,13 @@ function startCanvas() {
 		selectedObject = selectObject(mouse.x, mouse.y);
 
 		if(selectedObject == null) {
-			selectedObject = new Node(mouse.x, mouse.y);
+			selectedObject = new Node(mouse.x, mouse.y, nodes.length);
 			nodes.push(selectedObject);
 			resetCaret();
 			draw();
 		} else if(selectedObject instanceof Node) {
 			selectedObject.isAcceptState = !selectedObject.isAcceptState;
+			finalNodes.push(selectedObject);
 			draw();
 		}
 	};
@@ -225,6 +229,7 @@ function startCanvas() {
 			if(selectedObject == null) {
 				if(targetNode != null) {
 					currentLink = new StartLink(targetNode, originalClick);
+					initialNode = targetNode;
 				} else {
 					currentLink = new TemporaryLink(originalClick, mouse);
 				}
@@ -287,11 +292,21 @@ document.onkeydown = function(e) {
 		if(selectedObject != null) {
 			for(var i = 0; i < nodes.length; i++) {
 				if(nodes[i] == selectedObject) {
+					if(selectedObject.isAcceptState){
+						for(var k = 0; k < finalNodes.length; k++){
+							if(finalNodes[k] === selectedObject){
+								finalNodes.splice(k,1);
+							}
+						}
+					}
 					nodes.splice(i--, 1);
 				}
 			}
 			for(var i = 0; i < links.length; i++) {
 				if(links[i] == selectedObject || links[i].node == selectedObject || links[i].nodeA == selectedObject || links[i].nodeB == selectedObject) {
+					if (selectedObject instanceof StartLink) {
+						initialNode = {};
+					}
 					links.splice(i--, 1);
 				}
 			}
@@ -407,8 +422,16 @@ function getLinks(){
 	return links;
 }
 
-function createTransition(){
-	var transitions = new Array;
+function getInitialNode(){
+	return initialNode;
+}
+
+function getFinalNodes(){
+	return finalNodes;
+}
+
+function getTransition(){
+	transitions = new Array;
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
 			'node': nodes[i],
@@ -418,12 +441,17 @@ function createTransition(){
 	for(var i = 0; i < transitions.length; i++){
 		for(var j = 0; j < links.length; j++){
 			if(transitions[i].node === links[j].nodeA){
-				transitions[i].links.push({
-					'symbol': links[j].text,
-					'node': links[j].nodeB
-				})
+				var tmp = links[j].text.split(",");
+				for(var k = 0; k < tmp.length; k++){
+					transitions[i].links.push({
+						'symbol': tmp[k],
+						'node': links[j].nodeB
+					})
+				}
 			}
 		}
 	}
 	return transitions
 }
+
+

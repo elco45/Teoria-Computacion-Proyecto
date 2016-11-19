@@ -1,4 +1,5 @@
-function Node(x, y) {
+function Node(x, y, id) {
+	this.id = id;
 	this.x = x;
 	this.y = y;
 	this.mouseOffsetX = 0;
