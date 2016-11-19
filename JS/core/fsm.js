@@ -195,6 +195,7 @@ function startCanvas() {
 			resetCaret();
 			return true;
 		}
+		$("#canvas").focus();
 	};
 
 	canvas.ondblclick = function(e) {
