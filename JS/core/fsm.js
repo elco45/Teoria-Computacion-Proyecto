@@ -440,13 +440,25 @@ function getTransition(){
 	}
 	for(var i = 0; i < transitions.length; i++){
 		for(var j = 0; j < links.length; j++){
-			if(transitions[i].node === links[j].nodeA){
-				var tmp = links[j].text.split(",");
-				for(var k = 0; k < tmp.length; k++){
-					transitions[i].links.push({
-						'symbol': tmp[k],
-						'node': links[j].nodeB
-					})
+			if(links[j] instanceof Link){
+				if(transitions[i].node === links[j].nodeA){
+					var tmp = links[j].text.split(",");
+					for(var k = 0; k < tmp.length; k++){
+						transitions[i].links.push({
+							'symbol': tmp[k],
+							'node': links[j].nodeB
+						})
+					}
+				}
+			}else if(links[j] instanceof SelfLink){
+				if(transitions[i].node === links[j].node){
+					var tmp = links[j].text.split(",");
+					for(var k = 0; k < tmp.length; k++){
+						transitions[i].links.push({
+							'symbol': tmp[k],
+							'node': links[j].node
+						})
+					}
 				}
 			}
 		}
