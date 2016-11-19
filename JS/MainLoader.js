@@ -11,6 +11,11 @@ $(document).ready( function() {
 $(document).ready( function() {
     $("#load_NFA").on("click", function() {
         $("#container-body").load("VIEWS/NFA.html");
+        $(document).ready( function() {
+            $.getScript('JS/core/fsm.js', function () {          
+                  startCanvas();  
+            });
+        });
     });
 });
 $(document).ready( function() {
