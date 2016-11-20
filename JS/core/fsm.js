@@ -1,6 +1,6 @@
 var greekLetterNames = [ 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega' ];
 var transitions = [];
-var initialNode;
+var initialNode = {};
 var finalNodes = [];
 
 function convertLatexShortcuts(text) {
@@ -460,7 +460,10 @@ function getTransition(){
 						})
 					}
 				}
+			}else if(links[j] instanceof StartLink){
+				initialNode = links[j].node
 			}
+			
 		}
 	}
 	return transitions
