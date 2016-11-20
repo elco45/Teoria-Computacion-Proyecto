@@ -435,7 +435,7 @@ function getTransition(){
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
 			'node': nodes[i],
-			'links': new Array
+			'links': []
 		})
 	}
 	for(var i = 0; i < transitions.length; i++){
@@ -463,8 +463,17 @@ function getTransition(){
 			}else if(links[j] instanceof StartLink){
 				initialNode = links[j].node
 			}
-			
 		}
+	}
+	for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < transitions[i].links.length; j++){
+			for(var k = 0; k < transitions.length; k++){
+				if(transitions[i].links[j].node.id == transitions[k].node.id){
+					transitions[i].links[j].node.id = k;
+				}
+			
+			}
+		}	
 	}
 	return transitions
 }

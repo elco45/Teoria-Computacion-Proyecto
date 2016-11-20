@@ -5,23 +5,27 @@ function NFAtoDFA() {
     console.log(getFinalNodes())
 };  
 
-function consumeStringNFA(){    
+function consumeString(){    
     var stringToConsume = $('#cadena').val();
     console.log( recursiveConsume(getTransition(),getInitialNode().id,0,stringToConsume.length,stringToConsume,0) )
 };
 
-var recursiveConsumeNFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
-    console.log(ActualPosString + ","+ LengthString)
+var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
     if(ActualPosString === LengthString){
         return Transitions[NextNode].node;
     }else{
-        if(Transitions[NextNode].links[LinkPos].symbol === StringToConsume.charAt(ActualPosString)){
-            return recursiveConsume(Transitions, Transitions[NextNode].links[LinkPos].node.id,ActualPosString+=1,LengthString,StringToConsume,0);
+        if(Transitions[NextNode].links[LinkPos].symbol == StringToConsume.charAt(ActualPosString) || Transitions[NextNode].links[LinkPos].symbol == '#'){
+            if(Transitions[NextNode].links[LinkPos].symbol === StringToConsume.charAt(ActualPosString)){
+                return recursiveConsume(Transitions, Transitions[NextNode].links[LinkPos].node.id,ActualPosString+=1,LengthString,StringToConsume,0);
+            }else{
+                return recursiveConsume(Transitions, Transitions[NextNode].links[LinkPos].node.id,ActualPosString,LengthString,StringToConsume,0);
+            }
+            
         }else{
             if(LinkPos >= Transitions[NextNode].links.length){
                 return recursiveConsume(Transitions, NextNode, LengthString, LengthString, StringToConsume,LinkPos );
             }else{
-                return recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos++);
+                return recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos+=1);
             }
         }
     }

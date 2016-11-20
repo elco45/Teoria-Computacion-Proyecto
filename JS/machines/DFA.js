@@ -1,10 +1,9 @@
 function consumeStringDFA(){    
     var stringToConsume = $('#cadena').val();
-    console.log( recursiveConsume(getTransition(),getInitialNode().id,0,stringToConsume.length,stringToConsume,0) )
+    console.log( recursiveConsumeDFA(getTransition(),getInitialNode().id,0,stringToConsume.length,stringToConsume,0) )
 };
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
-    console.log(ActualPosString + ","+ LengthString)
     if(ActualPosString === LengthString){
         return Transitions[NextNode].node;
     }else{
@@ -14,7 +13,7 @@ var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, Lengt
             if(LinkPos >= Transitions[NextNode].links.length){
                 return recursiveConsume(Transitions, NextNode, LengthString, LengthString, StringToConsume,LinkPos );
             }else{
-                return recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos++);
+                return recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos+=1);
             }
         }
     }
