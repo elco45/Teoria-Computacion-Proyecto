@@ -1,6 +1,15 @@
 function consumeStringDFA(){    
     var stringToConsume = $('#cadena').val();
-    console.log( recursiveConsumeDFA(getTransition(),getInitialNode().id,0,stringToConsume.length,stringToConsume,0) )
+	var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().id,0,stringToConsume.length,stringToConsume,0);
+	if(isAccepted){
+		if(isAccepted.isAcceptState){
+			alert("Aceptada");
+		}else{
+			alert("Rechazada");
+		}
+	}else{
+			alert("Rechazada");
+	}
 };
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
