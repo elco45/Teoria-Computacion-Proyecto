@@ -11,12 +11,13 @@ function consumeString(){
 };
 
 var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos, BeforeNode, BeforeLink, Moved){
-    /*console.log(LinkPos)
+    console.log(LinkPos)
     console.log(BeforeLink)
     console.log(NextNode)
     console.log(BeforeNode)
     console.log(ActualPosString)
-    console.log('---------------------------------------')*/
+    console.log(Moved)
+    console.log('---------------------------------------')
     if(ActualPosString === LengthString && Transitions[NextNode].node.isAcceptState){
         return Transitions[NextNode].node;
     }else{
@@ -51,13 +52,14 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
                 if(LinkPos == Transitions[NextNode].links.length){
                    
                     if(Transitions[NextNode].links[Transitions[NextNode].links.length-1].idFather != NextNode){
-                        console.log('************************************')
+                        /*console.log('************************************')
                         console.log(BeforeNode)
                         console.log(NextNode)
                         BeforeNode = Transitions[NextNode].links[Transitions[NextNode].links.length-1].idFather
-                        console.log(BeforeNode)
+                        console.log(BeforeNode)*/
                     }
-                    return recursiveConsume(Transitions,BeforeNode,ActualPosString-Moved,LengthString,StringToConsume,BeforeLink+1,BeforeNode,BeforeLink+1,Moved-1)
+                    console.log('AAAAAAAAAAAAAAAA')
+                    return recursiveConsume(Transitions,BeforeNode,ActualPosString-1,LengthString,StringToConsume,BeforeLink+1,BeforeNode,BeforeLink+1,Moved-1)
                 }else{
                     return false
                 }
@@ -68,7 +70,7 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
                 console.log(BeforeNode)
                 console.log(Transitions[NextNode].links[LinkPos])
                 console.log(ActualPosString)*/
-                return recursiveConsume(Transitions,BeforeNode,ActualPosString,LengthString,StringToConsume,LinkPos+1,BeforeNode,BeforeLink,Moved)
+                return recursiveConsume(Transitions,NextNode,ActualPosString,LengthString,StringToConsume,LinkPos+1,BeforeNode,BeforeLink,Moved)
             }
         }
     }
