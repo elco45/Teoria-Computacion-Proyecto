@@ -17,14 +17,18 @@ var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, Lengt
         return Transitions[NextNode].node;
     }else{
         console.log(Transitions[NextNode])
-        if(Transitions[NextNode].links[LinkPos].symbol === StringToConsume.charAt(ActualPosString)){
-            return recursiveConsumeDFA(Transitions, Transitions[NextNode].links[LinkPos].node.idNext,ActualPosString+1,LengthString,StringToConsume,0);
-        }else{
-            if(LinkPos >= Transitions[NextNode].links.length){
-                return recursiveConsumeDFA(Transitions, NextNode, LengthString, LengthString, StringToConsume,LinkPos );
-            }else{
-                return recursiveConsumeDFA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos+1);
-            }
-        }
+		if(Transitions[NextNode].links[LinkPos]){
+			if(Transitions[NextNode].links[LinkPos].symbol === StringToConsume.charAt(ActualPosString)){
+				return recursiveConsumeDFA(Transitions, Transitions[NextNode].links[LinkPos].node.idNext,ActualPosString+1,LengthString,StringToConsume,0);
+			}else{
+				if(LinkPos >= Transitions[NextNode].links.length){
+					return recursiveConsumeDFA(Transitions, NextNode, LengthString, LengthString, StringToConsume,LinkPos );
+				}else{
+					return recursiveConsumeDFA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos+1);
+				}
+			}
+		}else{
+			return null;
+		}
     }
 }
