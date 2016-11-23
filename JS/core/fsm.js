@@ -1,5 +1,4 @@
 var greekLetterNames = [ 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega' ];
-var transitions = [];
 var initialNode = {};
 var finalNodes = [];
 
@@ -431,7 +430,7 @@ function getFinalNodes(){
 }
 
 function getTransition(){
-	transitions = new Array;
+	var transitions = new Array;
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
 			'node': nodes[i],
@@ -465,14 +464,14 @@ function getTransition(){
 			}
 		}
 	}
-	for(var i = 0; i < transitions.length; i++){
+    for(var i = 0; i < transitions.length; i++){
 		for(var j = 0; j < transitions[i].links.length; j++){
 			for(var k = 0; k < transitions.length; k++){
-				if(transitions[i].links[j].node.id == transitions[k].node.id){
-					transitions[i].links[j].node.id = k;
+				if(transitions[i].links[j].node.idNext == transitions[k].node.idNext){
+					transitions[i].links[j].node.idNext = k;
 				}
-			
 			}
+			transitions[i].links[j].node.idFather = i;
 		}	
 	}
 	return transitions

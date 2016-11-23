@@ -1,5 +1,6 @@
-function Node(x, y, id) {
-	this.id = id;
+function Node(x, y, idNext) {
+	this.idNext = idNext;
+	this.idFather = -1;
 	this.x = x;
 	this.y = y;
 	this.mouseOffsetX = 0;
