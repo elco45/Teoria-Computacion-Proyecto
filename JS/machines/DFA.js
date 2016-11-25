@@ -1,5 +1,5 @@
 function consumeStringDFA(){    
-    var stringToConsume = $('#cadena').val();
+    var stringToConsume = $('#str_cadena').val();
 	var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
 	if(isAccepted){
 		if(isAccepted.isAcceptState){
