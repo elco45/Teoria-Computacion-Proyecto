@@ -10,6 +10,7 @@ function consumeStringDFA(){
 	}else{
 			alert("Rechazada");
 	}
+	$('#str_cadena').val('')
 };
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){

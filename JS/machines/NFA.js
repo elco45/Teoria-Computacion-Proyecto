@@ -8,6 +8,7 @@ function NFAtoDFA() {
 function consumeStringNFA(){    
     var stringToConsume = $('#str_cadena').val();
     console.log( recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0,getInitialNode().idNext,0,0,0) )
+    $('#str_cadena').val('')
 };
 
 var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos, BeforeNode, BeforeLink, Moved){
