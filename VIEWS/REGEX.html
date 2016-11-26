@@ -1,8 +1,41 @@
 <section>
     <h2><i class="fa fa-info fa-3x" aria-hidden="true"></i> REGEX</h2>
     <p>Expresiones Regulares</p>
+</section> 
 <section>
-
+    <div id ="actionControl">
+		<center><h3>Acciones</h3></center>			
+		<div class="row">
+		  	<div class="col-lg-12 col-md-4">
+		    	<div class="panel-heading">
+		    		<div class="row">
+		    			<label>Regex</label>
+		    			<input type="text" class="form-control col-xs-3" id="str_regex" placeholder="Ingrese Regex">
+		    		</div>
+		    		<hr>
+		      		<div class="row">
+		        		<div class="form-group btn-group col-lg-4 col-md-8">
+						  	<button type="button" class="btn btn-danger btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    	Evaluar Regex
+						  	</button>
+						  	<div class="dropdown-menu">
+						    	<div class="col-lg-12 col-md-12">
+						    		<input type="text" class="form-control col-xs-3" id="str_cadena" placeholder="Ingrese la cadena a probar">
+						  			<button type="button" class="btn btn-primary" id ="MarginButton" onclick="verifyRegex()">Verificar</button>		
+				        		</div>
+						  	</div>
+						</div>
+		        		<div class="form-group col-lg-4 col-md-8">
+				  			<button type="button" class="btn btn-success btn-md" id ="MarginButton" onclick="regexToDFA()">Transformar a DFA</button>	
+		        		</div>
+		        		<div class="form-group col-lg-4 col-md-8">
+					  		<button type="button" class="btn btn-warning btn-md" id ="MarginButton" onclick="regexToNFA()">Transformar a NFA</button>	
+			        	</div>			        
+		      		</div>
+		    	</div>
+		  	</div>		  
+		</div>  
+	</div>
 </section> 
 
                   
