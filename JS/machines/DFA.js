@@ -32,3 +32,7 @@ var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, Lengt
 		}
     }
 }
+
+function DFAtoNFA(){
+	
+}
