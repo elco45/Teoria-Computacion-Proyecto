@@ -15,7 +15,7 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
     console.log(NextNode)
     console.log(ActualPosString)
     console.log(LengthString)
-    if(ActualPosString === LengthString){
+    if(ActualPosString == LengthString){
         return true
     }
     for(var i = 0; i < Transitions[NextNode].links.length; i++){
