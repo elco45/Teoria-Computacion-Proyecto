@@ -1,7 +1,8 @@
-function consumeRegex(){
-    var str_regex = $('#str_regex').val('')
-    var str_cadena = $('#str_cadena').val('')
-    console.log(str_regex.test(str_cadena))
+function verifyRegex(){
+    var str_regex = new RegExp($('#str_regex').val())
+    var str_cadena = $('#str_cadena').val()
+    alert(str_regex.test(str_cadena))
+    $('#str_cadena').val('')
 }
 
 function regexToDFA(){
