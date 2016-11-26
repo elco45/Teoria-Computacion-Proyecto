@@ -21,9 +21,9 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
     for(var i = 0; i < Transitions[NextNode].links.length; i++){
         console.log(i)
         if(Transitions[NextNode].links[i].symbol === StringToConsume.charAt(ActualPosString)){
-            recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume)
+            return recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume)
         }else if(Transitions[NextNode].links[i].symbol === '#'){
-            recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume)
+            return recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume)
         }
     }
 }
