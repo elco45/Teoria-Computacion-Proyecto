@@ -477,4 +477,18 @@ function getTransition(){
 	return transitions
 }
 
+function drawGraph(InitialNode, Transitions, FinalNodes){
+	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> " + InitialNode.text + ";"
+	for(var i = 0; i < FinalNodes.length; i++){
+		vizText += FinalNodes[i].text + " [peripheries=2];"
+	}	
+	 for(var i = 0; i < Transitions.length; i++){
+		for(var j = 0; j < Transitions[i].links.length; j++){
+			vizText += Transitions[i].node.text + "->" + Transitions[i].links[j].node.text + " [ label=\""+  Transitions[i].links[j].symbol +"\" ];"
+		}
+	 }
+	vizText += "}"
+	return Viz(vizText, { format: "png-image-element" })
+}
+
 

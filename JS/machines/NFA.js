@@ -1,11 +1,12 @@
 function NFAtoDFA() {        
     var trans = getTransition()
+    var init = getInitialNode()
+    var fin = getFinalNodes()
     console.log(trans)
-    console.log(getInitialNode());
-    console.log(getFinalNodes())
-    var image = Viz("digraph g { a -> b; }", { format: "png-image-element" });
-    document.body.appendChild(image);
-    console.log("digraph g { a -> b; }")
+    console.log(init);
+    console.log(fin)
+    $("#vizGraph").html(drawGraph(init, trans, fin))
+    $("#vizModal").modal()
 };  
 
 function consumeStringNFA(){    
