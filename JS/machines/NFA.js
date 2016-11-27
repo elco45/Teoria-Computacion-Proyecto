@@ -3,6 +3,9 @@ function NFAtoDFA() {
     console.log(trans)
     console.log(getInitialNode());
     console.log(getFinalNodes())
+    var image = Viz("digraph g { a -> b; }", { format: "png-image-element" });
+    document.body.appendChild(image);
+    console.log("digraph g { a -> b; }")
 };  
 
 function consumeStringNFA(){    
