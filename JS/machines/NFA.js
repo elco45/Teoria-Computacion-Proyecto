@@ -10,20 +10,25 @@ function NFAtoDFA() {
 };  
 
 function consumeStringNFA(){    
-    var stringToConsume = $('#str_cadena').val();
-    console.log(getInitialNode().idNext);
-    var isAccepted = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
-    if(isAccepted){
-        if(isAccepted.isAcceptState){
-            alert("Aceptada");
-        }else{
-            alert("Rechazada");
-        }
-    }else{
-            alert("Rechazada");
-    }
 
-    $('#str_cadena').val('');
+
+    if(validateNFA()){
+        var stringToConsume = $('#str_cadena').val();
+        console.log(getInitialNode().idNext);
+        var isAccepted = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
+        if(isAccepted){
+            if(isAccepted.isAcceptState){
+                swal("Nice!", "Cadena Aceptada", "success");
+            }else{
+                swal("Opps!", "Cadena Rechazada", "error");
+            }
+        }else{
+               
+               swal("Opps", "Cadena Rechazada", "error");
+        }
+
+        $('#str_cadena').val('');
+    }
 };
 
 var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
@@ -44,7 +49,26 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
     }
 }
 
+function validateNFA(){
+     console.log(getInitialNode());
+     console.log("Que putas");
+    if(getInitialNode()==null){
+        $('#str_validate').val('No se ha definido un estado inicial');
+        return false;
+    }else{
 
+        return true;
+    }
+
+
+
+};
+
+function sendMessage(){
+
+
+
+};
 
 function E(node){    
     
