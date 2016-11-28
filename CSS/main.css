@@ -178,4 +178,11 @@ canvas {
 
   padding: 4%;
 }
+#str_validate{
+
+  color: #c0392b;
+  font-style: bold;
+  font-size: 1.5em;
+
+}
 
