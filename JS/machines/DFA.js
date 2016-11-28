@@ -14,7 +14,7 @@ function consumeStringDFA(){
 	          
 	           swal("Opps", "Cadena Rechazada", "error");
 	    }
-		$('#str_cadena').val(''):
+		$('#str_cadena').val('');
 	}
 };
 
