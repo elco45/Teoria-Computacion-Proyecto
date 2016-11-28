@@ -491,4 +491,79 @@ function drawGraph(InitialNode, Transitions, FinalNodes){
 	return Viz(vizText, { format: "png-image-element" })
 }
 
+function validateAutomataEstructure(){
+    if(typeof getInitialNode().idNext=='undefined'){
+        $('#str_validate').text('No se ha definido un estado inicial');
+    }else if (getFinalNodes().length <= 0){
+        $('#str_validate').text('No se ha definido un estado final');       
+    }else if(EmptiesStatesNames()){
+        $('#str_validate').text('Los nombres de los estados no pueden estar vacíos');
+    }else if(!searchTransitions()){
+    	$('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
+
+    }
+    else{
+
+        return true;
+    }
+
+    return false;
+
+};
+
+function sendMessage(){
+
+
+
+};
+
+function searchTransitions(){
+    var Transitions = getTransition();
+    var Nodes = getNodes().length;
+    var TempNodes= new Array;
+    var includeFather=false;
+    var finalCounter=0;
+    for (var j =0; j < Transitions.length; j++) {
+        if(Transitions[j].node.idNext===0){
+            includeFather=true;
+        }
+        for (var i =0; i <Transitions[j].links.length; i++) { 
+                if(!arrayContains(Transitions[j].links[i].node.text,TempNodes)){
+                    TempNodes.push(Transitions[j].links[i].node.text);
+                }
+        }
+
+    }
+    console.log("A probar");
+    finalCounter=TempNodes.length;
+    if(includeFather && !(finalCounter===Nodes)){
+        finalCounter++;
+    }
+
+    if(finalCounter===Nodes){
+        return true;
+    }
+
+
+    return false;
+
+};   
+    
+ function EmptiesStatesNames(){
+ 	var States = getNodes();
+ 	for(var i=0; i<States.length;i++){
+
+ 		if(States[i].text==""){
+ 			return true;
+ 		}
+ 	}
+
+ 	return false;
+ };  
+
+function arrayContains(node, nodes)
+{
+    return (nodes.indexOf(node) > -1);
+}
+
 
