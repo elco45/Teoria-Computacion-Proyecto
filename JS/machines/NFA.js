@@ -9,21 +9,14 @@ function NFAtoDFA() {
     $("#vizModal").modal();
 };  
 
-function consumeStringNFA(){    
-
-
+function consumeStringNFA(){  
     if(validateNFA()){
         var stringToConsume = $('#str_cadena').val();
         console.log(getInitialNode().idNext);
         var isAccepted = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
-        if(isAccepted){
-            if(isAccepted.isAcceptState){
+        if(isAccepted == stringToConsume.length){
                 swal("Nice!", "Cadena Aceptada", "success");
-            }else{
-                swal("Opps!", "Cadena Rechazada", "error");
-            }
         }else{
-               
                swal("Opps", "Cadena Rechazada", "error");
         }
 
@@ -31,26 +24,27 @@ function consumeStringNFA(){
     }
 };
 
-var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
-    console.log(NextNode);
-    console.log(ActualPosString);
-    console.log(LengthString);
-    console.log("--------------");
-    if(ActualPosString == LengthString){
-       return Transitions[NextNode].node;
+
+function recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
+    if(ActualPosString == LengthString && Transitions[NextNode].node.isAcceptState){
+       return ActualPosString;
     }
     for(var i = 0; i < Transitions[NextNode].links.length; i++){
-        console.log(i)
         if(Transitions[NextNode].links[i].symbol === StringToConsume.charAt(ActualPosString)){
-            return recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume);
+            var t = recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume);
+            if(t == LengthString){
+                return t
+            }
         }else if(Transitions[NextNode].links[i].symbol === '#'){
-            return recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume);
+            var t = recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume);
+            if(t == LengthString){
+                return t
+            }
         }
     }
 }
 
-function validateNFA(){    
-
+function validateNFA(){
     if(typeof getInitialNode().idNext=='undefined'){
         $('#str_validate').text('No se ha definido un estado inicial');
     }else if (getFinalNodes().length <= 0){
