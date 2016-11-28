@@ -10,7 +10,7 @@ function NFAtoDFA() {
 };  
 
 function consumeStringNFA(){  
-    if(validateNFA()){
+    if(validateAutomataEstructure()){
          $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
         console.log(getInitialNode().idNext);
@@ -60,67 +60,7 @@ function recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, 
     }
 }
 
-function validateNFA(){
-    if(typeof getInitialNode().idNext=='undefined'){
-        $('#str_validate').text('No se ha definido un estado inicial');
-    }else if (getFinalNodes().length <= 0){
-        $('#str_validate').text('No se ha definido un estado final');       
-    }else if(!searchTransitions()){
-       $('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
-    }
-    else{
 
-        return true;
-    }
-
-    return false;
-
-};
-
-function sendMessage(){
-
-
-
-};
-
-function searchTransitions(){
-    var Transitions = getTransition();
-    var Nodes = getNodes().length;
-    var TempNodes= new Array;
-    var includeFather=false;
-    var finalCounter=0;
-    for (var j =0; j < Transitions.length; j++) {
-        if(Transitions[j].node.idNext===0){
-            includeFather=true;
-        }
-        for (var i =0; i <Transitions[j].links.length; i++) { 
-                if(!arrayContains(Transitions[j].links[i].node.text,TempNodes)){
-                    TempNodes.push(Transitions[j].links[i].node.text);
-                }
-        }
-
-    }
-    console.log("A probar");
-    finalCounter=TempNodes.length;
-    if(includeFather && !(finalCounter===Nodes)){
-        finalCounter++;
-    }
-
-    if(finalCounter===Nodes){
-        return true;
-    }
-
-
-    return true;
-
-};   
-    
-   
-
-function arrayContains(node, nodes)
-{
-    return (nodes.indexOf(node) > -1);
-}
 
 
 function E(node){    
