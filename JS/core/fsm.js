@@ -537,7 +537,6 @@ function searchTransitions(){
         }
 
     }
-    console.log("A probar");
     finalCounter=TempNodes.length;
     if(includeFather && !(finalCounter===Nodes)){
         finalCounter++;

@@ -11,7 +11,7 @@ function NFAtoDFA() {
 
 function consumeStringNFA(){  
     if(validateAutomataEstructure()){
-         $('#str_validate').text('NFA definido'); 
+        $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
         console.log(getInitialNode().idNext);
         var nodeAns = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);

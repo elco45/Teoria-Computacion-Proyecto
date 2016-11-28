@@ -1,17 +1,21 @@
-function consumeStringDFA(){    
-    var stringToConsume = $('#str_cadena').val();
-	var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
-    if(isAccepted){
-        if(isAccepted.isAcceptState){
-            swal("Nice!", "Cadena Aceptada", "success");
-        }else{
-            swal("Opps!", "Cadena Rechazada", "error");
-        }
-    }else{
-          
-           swal("Opps", "Cadena Rechazada", "error");
-    }
-	$('#str_cadena').val('')
+function consumeStringDFA(){
+
+	if(validateAutomataEstructure()){
+	    $('#str_validate').text('DFA definido'); 	
+	    var stringToConsume = $('#str_cadena').val();
+		var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
+	    if(isAccepted){
+	        if(isAccepted.isAcceptState){
+	            swal("Nice!", "Cadena Aceptada", "success");
+	        }else{
+	            swal("Opps!", "Cadena Rechazada", "error");
+	        }
+	    }else{
+	          
+	           swal("Opps", "Cadena Rechazada", "error");
+	    }
+		$('#str_cadena').val('');
+	}
 };
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
