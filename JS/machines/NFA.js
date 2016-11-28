@@ -10,7 +10,8 @@ function NFAtoDFA() {
 };  
 
 function consumeStringNFA(){  
-    //if(validateNFA()){
+    if(validateNFA()){
+         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
         console.log(getInitialNode().idNext);
         var nodeAns = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
@@ -84,9 +85,10 @@ function sendMessage(){
 
 function searchTransitions(){
     var Transitions = getTransition();
-    var Nodes = getNodes();
+    var Nodes = getNodes().length;
     var TempNodes= new Array;
     var includeFather=false;
+    var finalCounter=0;
     for (var j =0; j < Transitions.length; j++) {
         if(Transitions[j].node.idNext===0){
             includeFather=true;
@@ -98,15 +100,18 @@ function searchTransitions(){
         }
 
     }
-
-    if(includeFather){
-        TempNodes.push("ForMatch");
+    console.log("A probar");
+    finalCounter=TempNodes.length;
+    if(includeFather && !(finalCounter===Nodes)){
+        finalCounter++;
     }
-    if(TempNodes.length===Nodes.length){
+
+    if(finalCounter===Nodes){
         return true;
     }
 
-    return false;
+
+    return true;
 
 };   
     
@@ -124,4 +129,4 @@ function E(node){
 
 var recursiveFindE = function(Transitions, NextNode, ArrayE){    
     
-};
+}
