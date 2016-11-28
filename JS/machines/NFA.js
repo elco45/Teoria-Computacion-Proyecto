@@ -32,10 +32,10 @@ function consumeStringNFA(){
 };
 
 var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
-    console.log(NextNode);
+    /*console.log(NextNode);
     console.log(ActualPosString);
     console.log(LengthString);
-    console.log("--------------");
+    console.log("--------------");*/
     if(ActualPosString == LengthString){
        return Transitions[NextNode].node;
     }
@@ -50,10 +50,10 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
 }
 
 function validateNFA(){
-     console.log(getInitialNode());
-     console.log("Que putas");
-    if(getInitialNode()==null){
-        $('#str_validate').val('No se ha definido un estado inicial');
+    console.log("ID: ");
+    console.log(getInitialNode.idNext);
+    if(typeof getInitialNode().idNext=='undefined'){
+        $('#str_validate').text('No se ha definido un estado inicial');
         return false;
     }else{
 
