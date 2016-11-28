@@ -32,10 +32,10 @@ function consumeStringNFA(){
 };
 
 var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
-    /*console.log(NextNode);
+    console.log(NextNode);
     console.log(ActualPosString);
     console.log(LengthString);
-    console.log("--------------");*/
+    console.log("--------------");
     if(ActualPosString == LengthString){
        return Transitions[NextNode].node;
     }
@@ -49,18 +49,21 @@ var recursiveConsume = function(Transitions, NextNode, ActualPosString, LengthSt
     }
 }
 
-function validateNFA(){
-    console.log("ID: ");
-    console.log(getInitialNode.idNext);
+function validateNFA(){    
+
     if(typeof getInitialNode().idNext=='undefined'){
         $('#str_validate').text('No se ha definido un estado inicial');
-        return false;
-    }else{
+    }else if (getFinalNodes().length <= 0){
+        $('#str_validate').text('No se ha definido un estado final');       
+    }else if(!searchTransitions()){
+       $('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
+    }
+    else{
 
         return true;
     }
 
-
+    return false;
 
 };
 
@@ -69,6 +72,42 @@ function sendMessage(){
 
 
 };
+
+function searchTransitions(){
+    var Transitions = getTransition();
+    var Nodes = getNodes();
+    var TempNodes= new Array;
+    var includeFather=false;
+    for (var j =0; j < Transitions.length; j++) {
+        if(Transitions[j].node.idNext===0){
+            includeFather=true;
+        }
+        for (var i =0; i <Transitions[j].links.length; i++) { 
+                if(!arrayContains(Transitions[j].links[i].node.text,TempNodes)){
+                    TempNodes.push(Transitions[j].links[i].node.text);
+                }
+        }
+
+    }
+
+    if(includeFather){
+        TempNodes.push("ForMatch");
+    }
+    if(TempNodes.length===Nodes.length){
+        return true;
+    }
+
+    return false;
+
+};   
+    
+   
+
+function arrayContains(node, nodes)
+{
+    return (nodes.indexOf(node) > -1);
+}
+
 
 function E(node){    
     
