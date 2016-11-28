@@ -10,35 +10,50 @@ function NFAtoDFA() {
 };  
 
 function consumeStringNFA(){  
-    if(validateNFA()){
+    //if(validateNFA()){
         var stringToConsume = $('#str_cadena').val();
         console.log(getInitialNode().idNext);
-        var isAccepted = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
-        if(isAccepted == stringToConsume.length){
+        var nodeAns = recursiveConsume(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
+        console.log(nodeAns)
+        if(nodeAns){
+            if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
                 swal("Nice!", "Cadena Aceptada", "success");
+            }else{
+                   swal("Opps", "Cadena Rechazada", "error");
+            }
         }else{
-               swal("Opps", "Cadena Rechazada", "error");
+            swal("Opps", "Cadena Rechazada", "error");
         }
+        
 
         $('#str_cadena').val('');
-    }
+    //}
 };
 
 
 function recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
     if(ActualPosString == LengthString && Transitions[NextNode].node.isAcceptState){
-       return ActualPosString;
+        var ans = {
+            'actualPos': ActualPosString,
+            'node': Transitions[NextNode].node
+        }
+        return ans;
     }
     for(var i = 0; i < Transitions[NextNode].links.length; i++){
         if(Transitions[NextNode].links[i].symbol === StringToConsume.charAt(ActualPosString)){
             var t = recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume);
-            if(t == LengthString){
-                return t
+            if(t){
+                if(t.actualPos == LengthString){
+                    return t
+                }
             }
+            
         }else if(Transitions[NextNode].links[i].symbol === '#'){
             var t = recursiveConsume(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume);
-            if(t == LengthString){
-                return t
+            if(t){
+                if(t.actualPos == LengthString){
+                    return t
+                }
             }
         }
     }
