@@ -1,15 +1,16 @@
 function consumeStringDFA(){    
     var stringToConsume = $('#str_cadena').val();
 	var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
-	if(isAccepted){
-		if(isAccepted.isAcceptState){
-			alert("Aceptada");
-		}else{
-			alert("Rechazada");
-		}
-	}else{
-			alert("Rechazada");
-	}
+    if(isAccepted){
+        if(isAccepted.isAcceptState){
+            swal("Nice!", "Cadena Aceptada", "success");
+        }else{
+            swal("Opps!", "Cadena Rechazada", "error");
+        }
+    }else{
+          
+           swal("Opps", "Cadena Rechazada", "error");
+    }
 	$('#str_cadena').val('')
 };
 
