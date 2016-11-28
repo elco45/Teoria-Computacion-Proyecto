@@ -28,7 +28,7 @@ function consumeStringNFA(){
         
 
         $('#str_cadena').val('');
-    //}
+    }
 };
 
 
