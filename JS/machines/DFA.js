@@ -42,16 +42,7 @@ function DFAtoNFA(){
 	var trans = getTransition();
     var init = getInitialNode();
     var fin = getFinalNodes();
-    for(var i = 0; i < trans.length; i++){
-    	for(var j =0; j< trans[i].links.length; j++){
-    		trans[i].links[j].node.text = "{"+trans[i].links[j].node.text+"}";
-    	}	
-    }
-    for(var i = 0; i < fin.length; i++){
-    	fin[i].text = "{"+fin[i].text+"}";
-    }
-    init.text = "{"+init[i].text+"}";
     $("#vizGraphBefore").html(drawGraph(init, trans, fin));
-    $("#vizGraphAfter").html(drawGraph(init, trans, fin));
+    $("#vizGraphAfter").html(drawGraphDFA(init, trans, fin));
     $("#vizModal").modal();
 }
