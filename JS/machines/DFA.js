@@ -39,5 +39,10 @@ var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, Lengt
 }
 
 function DFAtoNFA(){
-	
+	var trans = getTransition();
+    var init = getInitialNode();
+    var fin = getFinalNodes();
+    $("#vizGraphBefore").html(drawGraph(init, trans, fin));
+    $("#vizGraphAfter").html(drawGraphDFA(init, trans, fin));
+    $("#vizModal").modal();
 }

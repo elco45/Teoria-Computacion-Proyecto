@@ -5,7 +5,8 @@ function NFAtoDFA() {
     console.log(trans);
     console.log(init);
     console.log(fin)
-    $("#vizGraph").html(drawGraph(init, trans, fin));
+    $("#vizGraphBefore").html(drawGraph(init, trans, fin));
+    $("#vizGraphAfter").html(drawGraph(init, trans, fin));
     $("#vizModal").modal();
 };  
 
@@ -67,6 +68,6 @@ function E(node){
     
 };
 
-var recursiveFindE = function(Transitions, NextNode, ArrayE){    
+function recursiveFindE(Transitions, NextNode, ArrayE){    
     
 }
