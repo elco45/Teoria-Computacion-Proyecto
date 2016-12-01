@@ -615,4 +615,14 @@ function arrayContains(node, nodes)
     return (nodes.indexOf(node) > -1);
 }
 
+function NoDuplicates(Array){
+    var tmp = [];
+    for(var i = 0; i < Array.length; i++){
+        if(tmp.indexOf(Array[i]) == -1){
+        tmp.push(Array[i]);
+        }
+    }
+    return tmp;
+}
+
 
