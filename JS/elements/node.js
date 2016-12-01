@@ -9,6 +9,15 @@ function Node(x, y, idNext) {
 	this.text = '';
 }
 
+Node.prototype.setText = function(text){
+	this.text=text;
+};
+
+Node.prototype.getText = function(){
+
+	return this.text;
+};
+
 Node.prototype.setMouseStart = function(x, y) {
 	this.mouseOffsetX = this.x - x;
 	this.mouseOffsetY = this.y - y;
