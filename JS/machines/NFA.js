@@ -66,38 +66,146 @@ function recursiveConsume(Transitions, NextNode, ActualPosString, LengthString, 
 function NFAtoDFA(){
     var Transitions=getTransition();
     var InitialNode=getInitialNode();
-    var FinalNode  =getFinalNodes();
+    var FinalNodes  =getFinalNodes();
     var Nodes = getNodes();
     var NewStates = CreateDFAStates(Nodes);
     var StatesSpliter = null;
     var Alphabet = getAlphabet(Transitions);
     var ENode= new Array;
-    console.log("Todas las Transitions:");
-    console.log(Transitions);
-    ENode=NoDuplicates(recursiveFindE(Transitions,Nodes[0],0,ENode,Nodes[0]));
+    var idNode=0;
+    var newTransitions= new Array;
+    var newFinalNodes = getNewFinalNodes(NewStates,FinalNodes);
+    var newInitialNode= getNewInitialNode(Transitions,InitialNode,Nodes,NewStates);
+    for(var i=0; i<NewStates.length;i++){
+        console.log("State: : "+NewStates[i].text);
+        StatesSpliter=NewStates[i].text.split(",");
+        var tempLinks= new Array;
+        for(var k=0; k<Alphabet.length;k++){  
+            console.log("Con : "+Alphabet[k]);
+            var NodeDeltaUEnode = new Array;            
+            for(var j=0; j<StatesSpliter.length;j++){
+                //console.log("Con parte de nodo : "+StatesSpliter[j]);             
+                var DeltaReturn=(FindDelta(Transitions,StatesSpliter[j],Alphabet[k]));                  
+                if(DeltaReturn){
+                    for(var x=0; x<DeltaReturn.length;x++){
+                        NodeDeltaUEnode.push(DeltaReturn[x]);
+                        idNode=DeltaReturn[x].idNext;
+                        ENode=NoDuplicates(recursiveFindE(Transitions,Nodes[idNode],idNode,ENode,Nodes[idNode]));
+                        if(ENode){
+                            NodeDeltaUEnode=addEnodes(NodeDeltaUEnode,ENode);    
+                        }
+                    }
+                                  
+                }              
+            }
+           //Create Temp link
+            NodeDeltaUEnode=NoDuplicates(NodeDeltaUEnode);
+            tempLinks.push({'symbol': Alphabet[k],'node': findNode(NewStates,createSet(NodeDeltaUEnode))});
+            console.log("============================TEMP LINKS=================================");
+            console.log(tempLinks); 
+        }
+        //create Transition
+        if(tempLinks.length>0){
+            newTransitions.push({'links':tempLinks,'node': NewStates[i]});
 
+        }
+       
+    }
+    console.log("==================================================");
+    console.log(InitialNode);
+    console.log(FinalNodes);
+    console.log(Transitions);
+    console.log("====================================================");
+    console.log(newInitialNode);
+    console.log(newFinalNodes);
+    console.log(newTransitions);    
+    $("#vizGraphBefore").html(drawGraph(InitialNode, Transitions, FinalNodes));
+    $("#vizGraphAfter").html(drawGraph(newInitialNode, newTransitions, newFinalNodes));
+    $("#vizModal").modal();
  
 };
 
-function getNewInitialNode(Transitions,Node){
+
+function addEnodes(NodeDeltaUEnode,ENode){
+    for(var i=0; i<ENode.length;i++){
+        if(!arrayContains(ENode[i],NodeDeltaUEnode)){
+            NodeDeltaUEnode.push(ENode[i]);
+        }
+    }    
+    return NodeDeltaUEnode;
+};
+
+function createSet(Array){
+    var set="";
+    for(var i=0; i<Array.length;i++){
+        set+=Array[i].text+",";
+    }
+    set=set.slice(0, -1);
+    return set;
 
 };
 
 
+function getNewInitialNode(Transitions,Node,Nodes,NewStates){
+    var ENode = new Array;
+    var NodeDeltaUEnode=new Array;
+    NodeDeltaUEnode.push(Node);
+    var idNode=Node.idNext;
+    ENode=NoDuplicates(recursiveFindE(Transitions,Nodes[idNode],idNode,ENode,Nodes[idNode]));
+    if(ENode){
+        NodeDeltaUEnode=addEnodes(NodeDeltaUEnode,ENode);  
+        NodeDeltaUEnode=NoDuplicates(NodeDeltaUEnode);
+        return findNode(NewStates,createSet(NodeDeltaUEnode));  
+    }
+    return null;
+};
 
-function FindReach(Transitions,Node){
+function getNewFinalNodes(NewStates,Nodes){
+    var newFinalNodes= new Array;
+    for(var i=0;i<NewStates.length;i++){
+        for(var j =0; j<Nodes.length;j++){
+            if(NewStates[i].text.includes(Nodes[j].text)){
+                NewStates[i].isAcceptState=true;
+                newFinalNodes.push(NewStates[i]);
+            }
+        }
 
+    }
 
+    return newFinalNodes;
+};
+
+function findNodeID(Nodes,Node){
+
+    for(var i=0; i<Nodes.length;i++){
+        if(Nodes[i].text===Node){
+            return Nodes[i].idNext;
+        }
+
+    }     
+    return null;
+};
+
+function findNode(Nodes,Node){
+    var split=Node.split(",");;
+    var counter =0;
+    console.log("NODE TO FIND: "+Node);
+    for(var i=0; i<Nodes.length;i++){
+        for(var j=0; j<split.length;j++){
+            if(Nodes[i].text.includes(split[j])){
+                counter++;
+            }   
+
+        }
+        if(counter==(Node.length-split.length+1)&&Node.length==Nodes[i].text.length){
+            return Nodes[i];
+        }
+        counter =0;     
+    }     
+    return Nodes[Nodes.length-1];    
 
 };
 
-function FindE(Transitions,Node){
-
-
-
-
-
-};
 
 function getAlphabet(Transitions){
     var Alphabet = new Array;
@@ -105,7 +213,7 @@ function getAlphabet(Transitions){
     for(var i=0; i<Transitions.length;i++){
         for(var j=0; j<Transitions[i].links.length;j++){
             Symbol=Transitions[i].links[j].symbol;
-            if(!arrayContains(Symbol,Alphabet)){
+            if(!arrayContains(Symbol,Alphabet)&&Symbol!="#"){
                 Alphabet.push(Symbol);
             }
         }
@@ -116,19 +224,18 @@ function getAlphabet(Transitions){
 };
 
 function FindDelta(Transitions,Node,Symbol){
-    var LinksToPush = new Array;
+    var NodesToPush = new Array;
     for(var i=0; i<Transitions.length;i++){
         if(Transitions[i].node.text==Node){
            for(var j=0; j<Transitions[i].links.length;j++){
                     if(Transitions[i].links[j].symbol==Symbol){
-                        LinksToPush.push(Transitions[i].links[j]);
+                        NodesToPush.push(Transitions[i].links[j].node);
                     }          
                     
                 }
-            return  {'node': Transitions[i].node,'links': LinksToPush};  
           }
     }
-    return null;
+    return NodesToPush;
 
 };
 
@@ -167,10 +274,6 @@ function CreateDFAStates(Nodes){
     return NewStates;
 };
 
-function CreateDFATransitions(Transitions,Nodes){
-
-
-};
 
 function recursiveFindE(Transitions, Node,NextNode, ArrayE,InitialNode){
    
@@ -184,14 +287,13 @@ function recursiveFindE(Transitions, Node,NextNode, ArrayE,InitialNode){
                 }
 
             }else{
-                console.log("Not Found Epsilon so Keep Looking in this node");
+               // console.log("Not Found Epsilon so Keep Looking in this node");
 
             }
 
         } 
     }
     if(Transitions[NextNode].node==InitialNode){
-
         return ArrayE;
     }
      
