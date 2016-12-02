@@ -583,8 +583,8 @@ function searchTransitions(){
  function SameStatesNames(){
  	var States = getNodes();
  	for(var i=0; i<States.length;i++){
-		for(var j=1; j<States.length;j++){
-			if(States[i]==States[j]){
+		for(var j=i+1; j<States.length;j++){
+			if(States[i].text==States[j].text){
 				return true;
 			}
 		 		
@@ -601,9 +601,7 @@ function searchTransitions(){
 
  	var Transitions = getTransition();
  	for(var i =0; i< Transitions.length; i++){
-
 		for(var j =0; j< Transitions[i].links.length; j++){
-			console.log(Transitions[i].links[j].symbol);
 			var spliter=Transitions[i].links[j].symbol.split(","); 
 
 			if(spliter.length>0){
