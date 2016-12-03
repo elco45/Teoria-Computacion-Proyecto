@@ -42,7 +42,9 @@ function DFAtoNFA(){
 	var trans = getTransition();
     var init = getInitialNode();
     var fin = getFinalNodes();
-    $("#vizGraphBefore").html(drawGraph(init, trans, fin));
-    $("#vizGraphAfter").html(drawGraphDFA(init, trans, fin));
+    $("#modal_Title1").text('Before(DFA)');
+    $("#modal_Title2").text('After(NFA)');
+    $("#vizGraphBefore").html(drawGraphDFA(init, trans, fin));
+    $("#vizGraphAfter").html(drawGraph(init, trans, fin));
     $("#vizModal").modal();
 }

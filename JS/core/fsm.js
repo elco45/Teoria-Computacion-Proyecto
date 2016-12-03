@@ -478,33 +478,35 @@ function getTransition(){
 }
 
 function drawGraph(InitialNode, Transitions, FinalNodes){
-	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> " + InitialNode.text + ";"
+	/*console.log(InitialNode)
+	console.log(FinalNodes)
+	console.log(Transitions)*/
+	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{" + InitialNode.text + "}\";";
 	for(var i = 0; i < FinalNodes.length; i++){
-		vizText += FinalNodes[i].text + " [peripheries=2];"
+		vizText += "\"{" + FinalNodes[i].text + "}\" [peripheries=2]; ";
 	}	
 	 for(var i = 0; i < Transitions.length; i++){
 		for(var j = 0; j < Transitions[i].links.length; j++){
-			vizText += Transitions[i].node.text + "->" + Transitions[i].links[j].node.text + " [ label=\""+  Transitions[i].links[j].symbol +"\" ];"
+			vizText += "\"{" + Transitions[i].node.text  + "}\" -> \"{" + Transitions[i].links[j].node.text + "}\" [ label=\""+  Transitions[i].links[j].symbol +"\" ];";
 		}
 	 }
-	vizText += "}"
-	return Viz(vizText, { format: "png-image-element" })
+	vizText += "}";;
+	console.log(vizText)
+	return Viz(vizText, { format: "svg" });
 }
 
 function drawGraphDFA(InitialNode, Transitions, FinalNodes){
-	var openChar="{";
-	var closeChar="}";
-	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> " + openChar+InitialNode.text + closeChar+";"
+	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"" + InitialNode.text + "\";";
 	for(var i = 0; i < FinalNodes.length; i++){
-		vizText += FinalNodes[i].text + " [peripheries=2];"
+		vizText += "\"" + FinalNodes[i].text + "\" [peripheries=2]; ";
 	}	
 	 for(var i = 0; i < Transitions.length; i++){
 		for(var j = 0; j < Transitions[i].links.length; j++){
-			vizText += Transitions[i].node.text + "->" + openChar+Transitions[i].links[j].node.text +closeChar+ " [ label=\""+  Transitions[i].links[j].symbol +"\" ];"
+			vizText += "\"" + Transitions[i].node.text  + "\" -> \"" + Transitions[i].links[j].node.text + "\" [ label=\""+  Transitions[i].links[j].symbol +"\" ];";
 		}
 	 }
-	vizText += "}"
-	return Viz(vizText, { format: "png-image-element" })
+	vizText += "}";
+	return Viz(vizText, { format: "svg" });
 }
 
 function validateAutomataEstructure(){

@@ -102,28 +102,29 @@ function NFAtoDFA(){
                //Create Temp link
                 NodeDeltaUEnode=NoDuplicates(NodeDeltaUEnode);
                 tempLinks.push({'symbol': Alphabet[k],'node': findNode(NewStates,createSet(NodeDeltaUEnode))});
-                console.log("============================TEMP LINKS=================================");
-                console.log(tempLinks); 
+                /*console.log("============================TEMP LINKS=================================");
+                console.log(tempLinks); */
             }
             //create Transition
             if(tempLinks.length>0){
                 newTransitions.push({'links':tempLinks,'node': NewStates[i]});
 
             }
-           
         }
-        console.log("==================================================");
+        /*console.log("==================================================");
         console.log(InitialNode);
         console.log(FinalNodes);
         console.log(Transitions);
         console.log("====================================================");
         console.log(newInitialNode);
         console.log(newFinalNodes);
-        console.log(newTransitions);    
+        console.log(newTransitions);  */  
+        $('#modal_Title1').text('Before(NFA)');
+        $('#modal_Title2').text('After(DFA)');
         $("#vizGraphBefore").html(drawGraph(InitialNode, Transitions, FinalNodes));
         $("#vizGraphAfter").html(drawGraph(newInitialNode, newTransitions, newFinalNodes));
         $("#vizModal").modal();
-}
+    }
  
 };
 
