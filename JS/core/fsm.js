@@ -491,7 +491,6 @@ function drawGraph(InitialNode, Transitions, FinalNodes){
 		}
 	 }
 	vizText += "}";;
-	console.log(vizText)
 	return Viz(vizText, { format: "svg" });
 }
 
