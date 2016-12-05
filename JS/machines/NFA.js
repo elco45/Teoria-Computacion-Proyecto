@@ -72,7 +72,6 @@ function NFAtoDFA(){
         var NewStates = CreateDFAStates(Nodes);
         var StatesSpliter = null;
         var Alphabet = getAlphabet(Transitions);
-        var ENode= new Array;
         var idNode=0;
         var newTransitions= new Array;
         var newFinalNodes = getNewFinalNodes(NewStates,FinalNodes);
@@ -83,7 +82,8 @@ function NFAtoDFA(){
             var tempLinks= new Array;
             for(var k=0; k<Alphabet.length;k++){  
                 console.log("Con : "+Alphabet[k]);
-                var NodeDeltaUEnode = new Array;            
+                var NodeDeltaUEnode = new Array;
+                var ENode= new Array;            
                 for(var j=0; j<StatesSpliter.length;j++){
                     //console.log("Con parte de nodo : "+StatesSpliter[j]);             
                     var DeltaReturn=(FindDelta(Transitions,StatesSpliter[j],Alphabet[k]));                  
@@ -196,7 +196,6 @@ function findNodeID(Nodes,Node){
 function findNode(Nodes,Node){
     var split=Node.split(",");;
     var counter =0;
-    console.log("NODE TO FIND: "+Node);
     for(var i=0; i<Nodes.length;i++){
         for(var j=0; j<split.length;j++){
             if(Nodes[i].text.includes(split[j])){
