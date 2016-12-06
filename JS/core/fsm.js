@@ -478,17 +478,34 @@ function getTransition(){
 }
 
 function drawGraph(InitialNode, Transitions, FinalNodes){
-	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> " + InitialNode.text + ";"
+	/*console.log(InitialNode)
+	console.log(FinalNodes)
+	console.log(Transitions)*/
+	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{" + InitialNode.text + "}\";";
 	for(var i = 0; i < FinalNodes.length; i++){
-		vizText += FinalNodes[i].text + " [peripheries=2];"
+		vizText += "\"{" + FinalNodes[i].text + "}\" [peripheries=2]; ";
 	}	
 	 for(var i = 0; i < Transitions.length; i++){
 		for(var j = 0; j < Transitions[i].links.length; j++){
-			vizText += Transitions[i].node.text + "->" + Transitions[i].links[j].node.text + " [ label=\""+  Transitions[i].links[j].symbol +"\" ];"
+			vizText += "\"{" + Transitions[i].node.text  + "}\" -> \"{" + Transitions[i].links[j].node.text + "}\" [ label=\""+  Transitions[i].links[j].symbol +"\" ];";
 		}
 	 }
-	vizText += "}"
-	return Viz(vizText, { format: "png-image-element" })
+	vizText += "}";;
+	return Viz(vizText, { format: "svg" });
+}
+
+function drawGraphDFA(InitialNode, Transitions, FinalNodes){
+	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"" + InitialNode.text + "\";";
+	for(var i = 0; i < FinalNodes.length; i++){
+		vizText += "\"" + FinalNodes[i].text + "\" [peripheries=2]; ";
+	}	
+	 for(var i = 0; i < Transitions.length; i++){
+		for(var j = 0; j < Transitions[i].links.length; j++){
+			vizText += "\"" + Transitions[i].node.text  + "\" -> \"" + Transitions[i].links[j].node.text + "\" [ label=\""+  Transitions[i].links[j].symbol +"\" ];";
+		}
+	 }
+	vizText += "}";
+	return Viz(vizText, { format: "svg" });
 }
 
 function validateAutomataEstructure(){
@@ -498,6 +515,10 @@ function validateAutomataEstructure(){
         $('#str_validate').text('No se ha definido un estado final');       
     }else if(EmptiesStatesNames()){
         $('#str_validate').text('Los nombres de los estados no pueden estar vacíos');
+    }else if(IncompleteTransitionValue()){
+    	 $('#str_validate').text('Los valores de las transiciones no pueden ser : Vacías o incompletas (, o A,)...');
+    }else if(SameStatesNames()){
+    	$('#str_validate').text('Los nombres de los estados deben ser únicos'); 
     }else if(!searchTransitions()){
     	$('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
 
@@ -534,7 +555,6 @@ function searchTransitions(){
         }
 
     }
-    console.log("A probar");
     finalCounter=TempNodes.length;
     if(includeFather && !(finalCounter===Nodes)){
         finalCounter++;
@@ -561,9 +581,67 @@ function searchTransitions(){
  	return false;
  };  
 
+ function SameStatesNames(){
+ 	var States = getNodes();
+ 	for(var i=0; i<States.length;i++){
+		for(var j=i+1; j<States.length;j++){
+			if(States[i].text==States[j].text){
+				return true;
+			}
+		 		
+		}
+			
+	 		
+ 	}
+
+ 	return false;
+ };  
+
+
+ function IncompleteTransitionValue(){
+
+ 	var Transitions = getTransition();
+ 	for(var i =0; i< Transitions.length; i++){
+		for(var j =0; j< Transitions[i].links.length; j++){
+			var spliter=Transitions[i].links[j].symbol.split(","); 
+
+			if(spliter.length>0){
+				for(var k =0; k<spliter.length; k++){
+					if(spliter[k]==""){
+						return true;
+					}
+				}
+
+	 		}else{
+
+	 			if(spliter==""){
+	 				return true;
+	 			}
+
+	 		}			
+
+		}
+
+ 
+ 	}
+
+
+ 	return false;
+ };
+
 function arrayContains(node, nodes)
 {
     return (nodes.indexOf(node) > -1);
+}
+
+function NoDuplicates(Array){
+    var tmp = [];
+    for(var i = 0; i < Array.length; i++){
+        if(tmp.indexOf(Array[i]) == -1){
+        tmp.push(Array[i]);
+        }
+    }
+    return tmp;
 }
 
 

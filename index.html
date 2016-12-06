@@ -90,16 +90,27 @@
         </div>
         
         <!-- Modal -->
-        <div class="modal fade" id="vizModal" role="dialog">
+        <div class="modal modal-wide fade" id="vizModal" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Grafo</h4>
+                      <h4 class="modal-title">Comparación de Autómatas</h4>
                     </div>
                     <div class="modal-body">
-                      <span id="vizGraph"></span>
+                        <div class = "row">
+                            <div class = "col-md-6">
+                               <h2 id="modal_Title1">Before(NFA)</h2>
+                                <span id="vizGraphBefore"  class = "col-md-offset-2 col-md-10"></span>
+                            </div>
+                            
+                            <div style="border-left: thick solid #ff0000;" class = "col-md-6">
+                                <h2 id="modal_Title2">After (DFA)</h2>
+                                <span id="vizGraphAfter" class = "col-md-offset-2 col-md-10"></span>
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
