@@ -111,14 +111,14 @@ function NFAtoDFA(){
 
             }
         }
-        /*console.log("==================================================");
+        console.log("==================================================");
         console.log(InitialNode);
         console.log(FinalNodes);
         console.log(Transitions);
         console.log("====================================================");
         console.log(newInitialNode);
         console.log(newFinalNodes);
-        console.log(newTransitions);  */  
+        console.log(newTransitions);   
         $('#modal_Title1').text('Before(NFA)');
         $('#modal_Title2').text('After(DFA)');
         $("#vizGraphBefore").html(drawGraph(InitialNode, Transitions, FinalNodes));

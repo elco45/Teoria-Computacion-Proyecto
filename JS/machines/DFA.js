@@ -51,5 +51,4 @@ function DFAtoNFA(){
 	  var height = $(window).height() - 200;
 	  $(this).find(".modal-body").css("max-height", height);
 	});
-    
 }
