@@ -35,5 +35,5 @@ var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, Lengt
 }
 
 function DFAtoNFA(){
-	
+	alert("Dale a tu cuerpo alegría macarena");
 }
