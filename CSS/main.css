@@ -195,9 +195,4 @@ canvas {
 }
 
 
-body p { 
-  max-width: 400px; 
-  margin: 20px auto; 
-}
-
 #vizModal .modal-body p { margin-bottom: 900px }

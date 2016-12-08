@@ -31,6 +31,11 @@ $(document).ready( function() {
 $(document).ready( function() {
     $("#load_PDA").on("click", function() {
         $("#container-body").load("VIEWS/PDA.html");
+        $(document).ready( function() {
+            $.getScript('JS/core/fsm.js', function () {          
+                startCanvas();  
+            });
+        });
     });
 });
 $(document).ready( function() {
@@ -41,6 +46,11 @@ $(document).ready( function() {
 $(document).ready( function() {
     $("#load_TMACHINE").on("click", function() {
         $("#container-body").load("VIEWS/TMACHINE.html");
+        $(document).ready( function() {
+            $.getScript('JS/core/fsm.js', function () {          
+                startCanvas();  
+            });
+        });
     });
 });
 $(document).ready( function() {
