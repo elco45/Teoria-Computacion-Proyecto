@@ -39,11 +39,6 @@ $(document).ready( function() {
     });
 });
 $(document).ready( function() {
-    $("#load_CFGtoCNF").on("click", function() {
-        $("#container-body").load("VIEWS/CFGtoCNF.html");
-    });
-});
-$(document).ready( function() {
     $("#load_TMACHINE").on("click", function() {
         $("#container-body").load("VIEWS/TMACHINE.html");
     });
