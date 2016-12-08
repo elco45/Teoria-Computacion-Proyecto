@@ -471,16 +471,12 @@ function getTransition(){
 					transitions[i].links[j].node.idNext = k;
 				}
 			}
-			transitions[i].links[j].node.idFather = i;
 		}	
 	}
 	return transitions
 }
 
 function drawGraph(InitialNode, Transitions, FinalNodes){
-	/*console.log(InitialNode)
-	console.log(FinalNodes)
-	console.log(Transitions)*/
 	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{" + InitialNode.text + "}\";";
 	for(var i = 0; i < FinalNodes.length; i++){
 		vizText += "\"{" + FinalNodes[i].text + "}\" [peripheries=2]; ";
@@ -521,13 +517,9 @@ function validateAutomataEstructure(){
     	$('#str_validate').text('Los nombres de los estados deben ser únicos'); 
     }else if(!searchTransitions()){
     	$('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
-
-    }
-    else{
-
+    }else{
         return true;
     }
-
     return false;
 
 };
@@ -549,11 +541,10 @@ function searchTransitions(){
             includeFather=true;
         }
         for (var i =0; i <Transitions[j].links.length; i++) { 
-                if(!arrayContains(Transitions[j].links[i].node.text,TempNodes)){
-                    TempNodes.push(Transitions[j].links[i].node.text);
-                }
+            if(!arrayContains(Transitions[j].links[i].node.text,TempNodes)){
+                TempNodes.push(Transitions[j].links[i].node.text);
+            }
         }
-
     }
     finalCounter=TempNodes.length;
     if(includeFather && !(finalCounter===Nodes)){
@@ -613,19 +604,12 @@ function searchTransitions(){
 				}
 
 	 		}else{
-
 	 			if(spliter==""){
 	 				return true;
 	 			}
-
-	 		}			
-
+	 		}	
 		}
-
- 
  	}
-
-
  	return false;
  };
 
@@ -645,3 +629,52 @@ function NoDuplicates(Array){
 }
 
 
+function getTransitionPDA(){
+	var transitions = new Array;
+	for(var i = 0; i < nodes.length; i++){
+		transitions.push({
+			'node': nodes[i],
+			'links': []
+		})
+	}
+	for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < links.length; j++){
+			if(links[j] instanceof Link ){
+				if(transitions[i].node === links[j].nodeA){
+					var tmp = links[j].text.split(",");
+					var tmp2 = tmp[1].split("->");
+					transitions[i].links.push({
+						'node': links[j].nodeB,
+						'input': tmp[0],
+						'popElement': tmp2[0],
+						'pushElement': tmp2[1]
+					})
+				}
+			}else if(links[j] instanceof SelfLink){
+				if(transitions[i].node === links[j].node){
+					var tmp = links[j].text.split(",");
+					var tmp2 = tmp.split("->");
+					transitions[i].links.push({
+						'node': links[j].node,
+						'input': tmp[0],
+						'popElement': tmp2[0],
+						'pushElement': tmp2[1]
+					})
+				}
+			}else if(links[j] instanceof StartLink){
+				initialNode = links[j].node
+			}
+		}
+	}
+    for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < transitions[i].links.length; j++){
+			for(var k = 0; k < transitions.length; k++){
+				if(transitions[i].links[j].node.idNext == transitions[k].node.idNext){
+					transitions[i].links[j].node.idNext = k;
+				}
+			}
+			transitions[i].links[j].node.idFather = i;
+		}	
+	}
+	return transitions
+}
