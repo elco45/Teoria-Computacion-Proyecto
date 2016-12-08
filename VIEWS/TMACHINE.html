@@ -1,8 +1,47 @@
 <section>
-    <h2><i class="fa fa-info fa-3x" aria-hidden="true"></i>TURING MACHINE</h2>
-    <p>Cargamos lo del TURING MACHINE</p>
+    <h2><i class="fa fa-rupee fa-3x" aria-hidden="true"></i> Turing Machine</h2>
+</section>
 <section>
-
-</section> 
+	<canvas id="canvas" width="800" height="600">
+		<span class="error">Su navegador no soporta<br> HTML5 &lt;canvas&gt; element</span>
+	</canvas>
+	<center><span><label id="str_validate">...</label></span></center>
+	<hr>
+	<div id ="actionControl">
+		<center><h3>Acciones</h3></center>			
+		<div class="row">
+		  	<div class="col-lg-12 col-md-4">
+				<div class="panel-heading">
+			      	<div class="row">
+			      		<div class="form-group btn-group col-lg-4 col-md-8">
+						  	<button type="button" class="btn btn-danger btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    	Evaluar cadena
+						  	</button>
+						  	<div class="dropdown-menu">
+						    	<div class="form-group col-lg-12 col-md-12">
+						    		<input type="text" class="form-control col-xs-3" id="str_cadena" placeholder="Ingrese la cadena a probar">
+						  			<button type="button" class="btn btn-primary" id ="MarginButton">Verificar</button>		
+				        		</div>
+						  	</div>
+						</div>       
+			      	</div>
+			    </div>
+		  	</div>		  
+		</div>  
+	</div>
+	<div>
+		<hr>		
+		<h2 id ="actionControl">Intrucciones para utilizar el diseñador</h2>
+		<ul>
+			<li><b>Agregar un estado:</b> doble click en el "Canvas-Cuadro Blanco".</li>
+			<li><b>Agregar una flecha:</b> shift-arrastrar en el canvas.</li>
+			<li><b>Mover algo:</b> arrastrarlo simplemente.</li>
+			<li><b>Borrar algo:</b> click en el objeto y apretar la tecla Delete-Suprimir.</li>
+			<li><b>Hacer un estado de aceptación:</b> doble click en un estado existente.</li>
+			<li><b>Escribir un símbolo de transición:</b>poner un guión bajo antes del número(Ejemplo "X_0").</li>
+			<li><b>Tipo letra griega:</b> Poner una barra invertida antes (como "\ Ejemplo").</li>			
+		</ul>
+	</div>
+</section>     
 
                   
