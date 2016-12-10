@@ -622,7 +622,7 @@ function NoDuplicates(Array){
     var tmp = [];
     for(var i = 0; i < Array.length; i++){
         if(tmp.indexOf(Array[i]) == -1){
-        tmp.push(Array[i]);
+        	tmp.push(Array[i]);
         }
     }
     return tmp;
@@ -653,7 +653,7 @@ function getTransitionPDA(){
 			}else if(links[j] instanceof SelfLink){
 				if(transitions[i].node === links[j].node){
 					var tmp = links[j].text.split(",");
-					var tmp2 = tmp.split("->");
+					var tmp2 = tmp[1].split("->");
 					transitions[i].links.push({
 						'node': links[j].node,
 						'input': tmp[0],
@@ -676,5 +676,6 @@ function getTransitionPDA(){
 			transitions[i].links[j].node.idFather = i;
 		}	
 	}
+	console.log(transitions)
 	return transitions
 }
