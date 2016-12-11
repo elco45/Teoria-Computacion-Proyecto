@@ -9,6 +9,15 @@ function Node(x, y, idNext) {
 	this.text = '';
 }
 
+Node.prototype.changeColor = function(c){
+	console.log(this.text)
+	c.beginPath();
+	c.arc(this.x,this.y,nodeRadius, 0, 2 * Math.PI, false)
+	c.fillStyle = 'red' 
+	c.fill()
+	c.closePath();
+}
+
 Node.prototype.setText = function(text){
 	this.text=text;
 };
