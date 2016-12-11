@@ -19,6 +19,9 @@ function consumeStringDFA(){
 };
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
+    setTimeout(function() {
+	    Transitions[NextNode].node.changeColor(canvas.getContext('2d'))
+	}, 5000);
     if(ActualPosString === LengthString){
         return Transitions[NextNode].node;
     }else{
