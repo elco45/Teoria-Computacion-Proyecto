@@ -13,8 +13,8 @@ Node.prototype.changeColor = function(c){
 	console.log(this.text)
 	c.beginPath();
 	c.arc(this.x,this.y,nodeRadius, 0, 2 * Math.PI, false)
-	c.strokeStyle = 'red'
-	c.stroke();
+	c.fillStyle = 'red' 
+	c.fill()
 	c.closePath();
 }
 
