@@ -37,7 +37,7 @@ function regexToNFA(){
 		
 		
 	}else{
-		vizText = "digraph g { a -> b; }";
+		vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{0}\"; \"{0}\" [peripheries=2]; }";
 		$('#modal_Title2').text('DFA');
         $("#vizGraphBefore").html(Viz(vizText, { format: "svg" }));
         $("#vizModal").modal();
