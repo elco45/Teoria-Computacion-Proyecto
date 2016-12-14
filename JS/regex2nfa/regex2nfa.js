@@ -1,6 +1,6 @@
 function RegexParser() {}
 RegexParser.parse = function(regex, alphabet) {
-  alphabet = alphabet || 'ab';
+  alphabet = alphabet || 'abc';
   if (!RegexParser.validate(regex, alphabet)) {
     throw new ParsingError('The RegEx you provided is invalid.');
     return false;
