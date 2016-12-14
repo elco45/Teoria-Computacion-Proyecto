@@ -76,40 +76,48 @@ function NFAtoDFA(){
         var newTransitions= new Array;
         var newFinalNodes = getNewFinalNodes(NewStates,FinalNodes);
         var newInitialNode= getNewInitialNode(Transitions,InitialNode,Nodes,NewStates);
+        var ReachedMe = false;
         for(var i=0; i<NewStates.length;i++){
-            console.log("State: : "+NewStates[i].text);
-            StatesSpliter=NewStates[i].text.split(",");
-            var tempLinks= new Array;
-            for(var k=0; k<Alphabet.length;k++){  
-                console.log("Con : "+Alphabet[k]);
-                var NodeDeltaUEnode = new Array;
-                var ENode= new Array;            
-                for(var j=0; j<StatesSpliter.length;j++){
-                    //console.log("Con parte de nodo : "+StatesSpliter[j]);             
-                    var DeltaReturn=(FindDelta(Transitions,StatesSpliter[j],Alphabet[k]));                  
-                    if(DeltaReturn){
-                        for(var x=0; x<DeltaReturn.length;x++){
-                            NodeDeltaUEnode.push(DeltaReturn[x]);
-                            idNode=DeltaReturn[x].idNext;
-                            ENode=NoDuplicates(recursiveFindE(Transitions,Nodes[idNode],idNode,ENode,Nodes[idNode]));
-                            if(ENode){
-                                NodeDeltaUEnode=addEnodes(NodeDeltaUEnode,ENode);    
-                            }
-                        }
-                                      
-                    }              
-                }
-               //Create Temp link
-                NodeDeltaUEnode=NoDuplicates(NodeDeltaUEnode);
-                tempLinks.push({'symbol': Alphabet[k],'node': findNode(NewStates,createSet(NodeDeltaUEnode))});
-                /*console.log("============================TEMP LINKS=================================");
-                console.log(tempLinks); */
-            }
-            //create Transition
-            if(tempLinks.length>0){
-                newTransitions.push({'links':tempLinks,'node': NewStates[i]});
+            if(NewStates[i].text!="Ø"){
 
-            }
+                console.log("State: : "+NewStates[i].text);
+                StatesSpliter=NewStates[i].text.split(",");
+                var tempLinks= new Array;
+                for(var k=0; k<Alphabet.length;k++){  
+                    console.log("Con : "+Alphabet[k]);
+                    var NodeDeltaUEnode = new Array;
+                    var ENode= new Array;            
+                    for(var j=0; j<StatesSpliter.length;j++){
+                        //console.log("Con parte de nodo : "+StatesSpliter[j]);             
+                        var DeltaReturn=(FindDelta(Transitions,StatesSpliter[j],Alphabet[k]));                  
+                        if(DeltaReturn){
+                            for(var x=0; x<DeltaReturn.length;x++){
+                                NodeDeltaUEnode.push(DeltaReturn[x]);
+                                idNode=DeltaReturn[x].idNext;
+                                ENode=NoDuplicates(recursiveFindE(Transitions,Nodes[idNode],idNode,ENode,Nodes[idNode]));
+                                if(ENode){
+                                    NodeDeltaUEnode=addEnodes(NodeDeltaUEnode,ENode);    
+                                }
+                            }
+                                          
+                        }              
+                    }
+                   //Create Temp link
+                    NodeDeltaUEnode=NoDuplicates(NodeDeltaUEnode);
+                    var NodetoAdd=findNode(NewStates,createSet(NodeDeltaUEnode));
+                    tempLinks.push({'symbol': Alphabet[k],'node': NodetoAdd});
+                    if(NodetoAdd.text=="Ø"){
+                        ReachedMe=true;
+                    }
+                    /*console.log("============================TEMP LINKS=================================");
+                    console.log(tempLinks); */
+                }
+                //create Transition
+                if(tempLinks.length>0){
+                    newTransitions.push({'links':tempLinks,'node': NewStates[i]});
+
+                }
+          }
         }
         console.log("==================================================");
         console.log(InitialNode);
@@ -118,7 +126,13 @@ function NFAtoDFA(){
         console.log("====================================================");
         console.log(newInitialNode);
         console.log(newFinalNodes);
-        console.log(newTransitions);   
+        console.log(newTransitions);
+
+        if(ReachedMe){
+            newTransitions.push({'links':TheyTouchedME(Alphabet,Transitions,NewStates[NewStates.length-1]),'node': NewStates[NewStates.length-1]});
+            console.log("Me tocaron");
+        }
+
         $('#modal_Title1').text('Before(NFA)');
         $('#modal_Title2').text('After(DFA)');
         $("#vizGraphBefore").html(drawGraph(InitialNode, Transitions, FinalNodes));
@@ -166,6 +180,16 @@ function getNewInitialNode(Transitions,Node,Nodes,NewStates){
     }
     return null;
 };
+
+function TheyTouchedME(Alphabet,Transitions,node){
+    var tempLinks=new Array;
+    for(var i=0; i<Alphabet.length;i++){
+        tempLinks.push({'symbol': Alphabet[i],'node': node});
+
+    }
+     return tempLinks;
+
+}
 
 function getNewFinalNodes(NewStates,Nodes){
     var newFinalNodes= new Array;
