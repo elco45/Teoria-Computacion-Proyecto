@@ -21,34 +21,20 @@ function regexToNFA(){
 	var str_regex = $('#str_regex').val();
 	if(str_regex){
 		
-		var nfa = RegexParser.parse(str_regex);
-		var i = 0;
-		
-		for (var state in nfa.states) {
-			i++;
-			
-			if(i==1){
-				initialNode.text = state;
-				alert(initialNode.text);
-			}
-		
-			console.group(state);
-			
-			for (var transition in nfa.states[state].transitions) {
-			var destinations = nfa.states[state].transitions[transition].map(function(item) {
-				return item.label;
-			}).join(', ');
-			console.log(transition + ' : ' + destinations);
-			}
-			
-			if (nfa.states[state].final) {
-				finalNodes.push({'text':state});
-				alert("final"+finalNodes[0].text);
-				//console.log('-- final state');
-			}
-			console.groupEnd();
-		}
-		
+		var regParser = require('regparser');
+		var parser = new regParser.RegParser();
+		var input = str_regex;
+		  parser.reset(input);
+		  try { 
+			var nfa = parser.parseToNFA();
+			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
+			$('#modal_Title1').text('NFA');
+			$('#modal_Title2').text('DFA');
+			$("#vizGraphBefore").html(result); 
+		  } catch(e) {
+			$("#vizGraphBefore").html(e);
+		  }
+		$("#vizModal").modal();
 		
 		
 	}else{
