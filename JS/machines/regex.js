@@ -11,7 +11,7 @@ function verifyRegex(){
 }
 
 function regexToDFA(){
-	
+	//the power
 }
 
 function regexToNFA(){
