@@ -22,7 +22,7 @@ function regexToDFA(){
 		var input = str_regex;
 		  parser.reset(input);
 		  try { 
-			var nfa = parser.parseToNFA();
+			var nfa = parser.parseToDFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
 			$('#modal_Title1').text('NFA');
 			$('#modal_Title2').text('DFA');
