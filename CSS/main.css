@@ -1,6 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Patua+One|Open+Sans);
 /* make sidebar nav vertical */ 
-@import url(http://fonts.googleapis.com/css?family=Patua+One|Open+Sans);
-
 @media (min-width: 768px){
   .affix-content .container {
     width: 700px;
@@ -195,21 +194,6 @@ canvas {
 .modal-wide .modal-body {
   overflow-y: auto;
 }
-
-.wrapper
-  margin: 0 auto
-  padding: 40px
-  max-width: 800px
-
-.table{
-  margin: 0 0 40px 0
-  width: 100%
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2)
-  display: table
-  @media screen and (max-width: 580px)
-    display: block
-}
-
 
 #vizModal .modal-body p { margin-bottom: 900px }
 

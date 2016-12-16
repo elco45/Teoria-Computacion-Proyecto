@@ -11,6 +11,7 @@ function NFAtoDFA() {
 };  
 
 function consumeStringNFA(){  
+    saveBackup();
     if(validateAutomataEstructure()){
         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();

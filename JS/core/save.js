@@ -93,6 +93,6 @@ function saveBackup() {
 			backup.links.push(backupLink);
 		}
 	}
-
+	console.log(JSON.stringify(backup))
 	localStorage['fsm'] = JSON.stringify(backup);
 }
