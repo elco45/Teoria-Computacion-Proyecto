@@ -11,6 +11,8 @@ $(document).ready( function() {
 $(document).ready( function() {
     $("#load_NFA").on("click", function() {
         $("#container-body").load("VIEWS/NFA.html");
+        restoreBackup()
+        console.log("meow")
         $(document).ready( function() {
             $.getScript('JS/core/fsm.js', function () {          
                   startCanvas();  
