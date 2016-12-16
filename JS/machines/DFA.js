@@ -1,10 +1,8 @@
 function consumeStringDFA(){
-
 	if(validateAutomataEstructure()){
 	    $('#str_validate').text('DFA definido'); 	
 	    var stringToConsume = $('#str_cadena').val();
 		var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
-	   
 	}
 }; 
 
