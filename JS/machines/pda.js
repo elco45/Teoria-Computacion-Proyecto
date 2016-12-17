@@ -1,6 +1,8 @@
 function consumeStringPDA(){ 
+    saveBackup()
     var stringToConsume = $('#str_cadena').val();
     var Stack = new Array();
+    console.log(getTransitionPDA())
     var nodeAns = recursiveConsumePDA(getTransitionPDA(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,Stack);
     console.log(nodeAns)
     if(nodeAns){
