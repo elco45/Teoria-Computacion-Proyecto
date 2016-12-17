@@ -29,37 +29,29 @@ function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthStrin
     for(var i = 0; i < Transitions[NextNode].links.length; i++){
         if(Transitions[NextNode].links[i].input === StringToConsume.charAt(ActualPosString) && 
         (Transitions[NextNode].links[i].popElement === '#' ||  Transitions[NextNode].links[i].popElement === Stack[Stack.length-1]  )){
-            var isPop = false;
-            if(Transitions[NextNode].links[i].popElement == '#'){
-                isPop = true;
-            }else if(Transitions[NextNode].links[i].popElement != '#' && Stack[Stack.length-1] === Transitions[NextNode].links[i].popElement){
+            if(Transitions[NextNode].links[i].popElement != '#' && Stack[Stack.length-1] === Transitions[NextNode].links[i].popElement){
                 Stack.pop();
-                isPop = true;
             }
-            if(isPop && Transitions[NextNode].links[i].pushElement != '#'){
+            if(Transitions[NextNode].links[i].pushElement != '#'){
                 Stack.push(Transitions[NextNode].links[i].pushElement)
             }
             var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,Stack);
             if(t){
-                if(t.actualPos == LengthString){
+                if(t.actualPos == LengthString && Stack.length==0){
                     return t
                 }
             }
             
         }else if(Transitions[NextNode].links[i].input === '#'){
-            var isPop = false;
-            if(Transitions[NextNode].links[i].popElement == '#'){
-                isPop = true;
-            }else if(Transitions[NextNode].links[i].popElement != '#' && Stack[Stack.length-1] === Transitions[NextNode].links[i].popElement){
+            if(Transitions[NextNode].links[i].popElement != '#' && Stack[Stack.length-1] === Transitions[NextNode].links[i].popElement){
                 Stack.pop();
-                isPop = true;
             }
-            if(isPop && Transitions[NextNode].links[i].pushElement != '#'){
+            if(Transitions[NextNode].links[i].pushElement != '#'){
                 Stack.push(Transitions[NextNode].links[i].pushElement)
             }
             var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume,Stack);
             if(t){
-                if(t.actualPos == LengthString){
+                if(t.actualPos == LengthString && Stack.length==0){
                     return t
                 }
             }
