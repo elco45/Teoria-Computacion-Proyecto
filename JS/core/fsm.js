@@ -676,6 +676,9 @@ function getTransitionPDA(){
 			transitions[i].links[j].node.idFather = i;
 		}	
 	}
-	console.log(transitions)
 	return transitions
+}
+
+function getTransitionTM(){
+	
 }
