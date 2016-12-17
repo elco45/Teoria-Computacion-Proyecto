@@ -1,5 +1,4 @@
 function consumeStringDFA(){
-	saveBackup();
 	if(validateAutomataEstructure()){
 	    $('#str_validate').text('DFA definido'); 	
 	    var stringToConsume = $('#str_cadena').val();
