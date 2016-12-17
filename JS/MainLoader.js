@@ -10,6 +10,7 @@ $(document).ready( function() {
 });
 $(document).ready( function() {
     $("#load_NFA").on("click", function() {
+        console.log("dsafaef")
         $("#container-body").load("VIEWS/NFA.html");
         restoreBackup()
         console.log("meow")

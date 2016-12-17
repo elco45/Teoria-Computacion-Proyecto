@@ -15,9 +15,7 @@ function consumeStringNFA(){
     if(validateAutomataEstructure()){
         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
-        console.log(getInitialNode().idNext);
         var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
-        console.log(nodeAns)
         if(nodeAns){
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
                 swal("Nice!", "Cadena Aceptada", "success");
