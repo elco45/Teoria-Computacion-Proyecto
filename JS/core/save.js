@@ -94,6 +94,6 @@ function saveBackup() {
 		}
 	}
 	console.log(JSON.stringify(backup))
-	console.log("sadfe")
-	localStorage['fsm'] = JSON.stringify(backup);
+	
+	//localStorage['fsm'] = JSON.stringify(backup);
 }
