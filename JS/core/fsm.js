@@ -701,7 +701,7 @@ function clearCanvas(){
 	console.log('asd')
 	nodes = [];
 	links = [];
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function restoreBackup(exampleName) {
