@@ -2,16 +2,12 @@ function NFAtoDFA() {
     var trans = getTransition();
     var init = getInitialNode();
     var fin = getFinalNodes();
-    console.log(trans);
-    console.log(init);
-    console.log(fin)
     $("#vizGraphBefore").html(drawGraph(init, trans, fin));
     $("#vizGraphAfter").html(drawGraph(init, trans, fin));
     $("#vizModal").modal();
 };  
 
 function consumeStringNFA(){  
-    saveBackup();
     if(validateAutomataEstructure()){
         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();

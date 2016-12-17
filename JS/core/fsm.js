@@ -697,11 +697,11 @@ function getTransitionTM(){
 
 
 //<----SAVE---->
-function clear(){
+function clearCanvas(){
 	console.log('asd')
 	nodes = [];
 	links = [];
-	draw();
+	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function restoreBackup(exampleName) {
