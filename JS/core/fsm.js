@@ -680,7 +680,73 @@ function getTransitionPDA(){
 }
 
 function getTransitionTM(){
-	
+	var transitions = new Array;
+	for(var i = 0; i < nodes.length; i++){
+		transitions.push({
+			'node': nodes[i],
+			'links': []
+		})
+	}
+	for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < links.length; j++){
+			if(links[j] instanceof Link ){
+				if(transitions[i].node === links[j].nodeA){
+					var tmp = links[j].text.split(",");
+					var tmp2 = tmp[0].split("->");
+					if(tmp.length==1){//solo se mueve
+						transitions[i].links.push({
+							'node': links[j].nodeB,
+							'input': tmp2[0],
+							'replaceInput': undefined,
+							'direction': tmp2[1]
+						})	
+					}else{
+						transitions[i].links.push({
+							'node': links[j].nodeB,
+							'input': tmp2[0],
+							'replaceInput': tmp2[1],
+							'direction': tmp[1]
+						})
+					}
+					
+				}
+			}else if(links[j] instanceof SelfLink){
+				if(transitions[i].node === links[j].node){
+					var tmp = links[j].text.split(",");
+					var tmp2 = tmp[0].split("->");
+					if(tmp.length==1){//solo se mueve
+						transitions[i].links.push({
+							'node': links[j].node,
+							'input': tmp2[0],
+							'replaceInput': undefined,
+							'direction': tmp2[1]
+						})	
+					}else{
+						transitions[i].links.push({
+							'node': links[j].node,
+							'input': tmp2[0],
+							'replaceInput': tmp2[1],
+							'direction': tmp[1]
+						})
+					}
+				}
+			}else if(links[j] instanceof StartLink){
+				initialNode = links[j].node
+			}
+		}
+	}
+    for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < transitions[i].links.length; j++){
+			for(var k = 0; k < transitions.length; k++){
+				if(transitions[i].links[j].node.idNext == transitions[k].node.idNext){
+					transitions[i].links[j].node.idNext = k;
+				}
+			}
+			transitions[i].links[j].node.idFather = i;
+		}	
+	}
+	console.log(transitions)
+	return transitions
 }
 
 
@@ -698,7 +764,6 @@ function getTransitionTM(){
 
 //<----SAVE---->
 function clearCanvas(){
-	console.log('asd')
 	nodes = [];
 	links = [];
 	canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
