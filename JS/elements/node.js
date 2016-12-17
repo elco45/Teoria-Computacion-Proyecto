@@ -10,7 +10,6 @@ function Node(x, y, idNext) {
 }
 
 Node.prototype.changeColor = function(c){
-	console.log(this.text)
 	c.beginPath();
 	c.arc(this.x,this.y,nodeRadius, 0, 2 * Math.PI, false)
 	c.fillStyle = 'red' 

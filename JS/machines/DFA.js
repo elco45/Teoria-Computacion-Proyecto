@@ -1,5 +1,5 @@
 function consumeStringDFA(){
-	
+	saveBackup();
 	if(validateAutomataEstructure()){
 	    $('#str_validate').text('DFA definido'); 	
 	    var stringToConsume = $('#str_cadena').val();
@@ -20,7 +20,7 @@ function consumeStringDFA(){
 
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
-	    Transitions[NextNode].node.changeColor(canvas.getContext('2d'))
+	Transitions[NextNode].node.changeColor(canvas.getContext('2d'))
     if(ActualPosString === LengthString){
         return Transitions[NextNode].node;
     }else{

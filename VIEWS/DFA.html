@@ -1,6 +1,11 @@
 <section>
     <h2><i class="fa fa-rupee fa-3x" aria-hidden="true"></i> DFA</h2>
     <p>Autómata Finito Deterministico</p>
+    <div class="row">
+    	<button type="button" class="btn btn-primary btn-md col-xs-offset-2 col-xs-2" onclick="restoreBackup('dfa1')">Ejemplo 1</button>
+    	<button type="button" class="btn btn-primary btn-md col-xs-offset-1 col-xs-2" onclick="restoreBackup('dfa2')">Ejemplo 2</button>
+    	<button type="button" class="btn btn-danger btn-md col-xs-offset-1 col-xs-2" onclick="clear()">Limpiar</button>
+    </div>
 </section>
 <section>
 	<canvas id="canvas" width="800" height="600">
@@ -21,7 +26,7 @@
 				  	<div class="dropdown-menu">
 				    	<div class="form-group col-lg-12 col-md-12">
 				    		<input type="text" class="form-control col-xs-3" id="str_cadena" placeholder="Ingrese la cadena a probar">
-				  			<button type="button" class="btn btn-primary" id ="MarginButton" onclick="consumeStringDFA(accepted())">Verificar</button>		
+				  			<button type="button" class="btn btn-primary" id ="MarginButton" onclick="consumeStringDFA()">Verificar</button>		
 		        		</div>
 				  	</div>
 				</div>
