@@ -746,7 +746,6 @@ function restoreBackup(exampleName) {
 				draw();
             }
         });
-		 
 	} catch(e) {
 		localStorage['fsm'] = '';
 	}
