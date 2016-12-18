@@ -430,12 +430,17 @@ function getFinalNodes(){
 }
 
 function getTransition(){
+	finalNodes = new Array();
+	initialNode = {};
 	var transitions = new Array;
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
 			'node': nodes[i],
 			'links': []
 		})
+		if(nodes[i].isAcceptState){
+			finalNodes.push(nodes[i])
+		}
 	}
 	for(var i = 0; i < transitions.length; i++){
 		for(var j = 0; j < links.length; j++){
@@ -505,6 +510,7 @@ function drawGraphDFA(InitialNode, Transitions, FinalNodes){
 }
 
 function validateAutomataEstructure(){
+	getTransition()
     if(typeof getInitialNode().idNext=='undefined'){
         $('#str_validate').text('No se ha definido un estado inicial');
     }else if (getFinalNodes().length <= 0){
@@ -630,6 +636,7 @@ function NoDuplicates(Array){
 
 
 function getTransitionPDA(){
+	
 	var transitions = new Array;
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
