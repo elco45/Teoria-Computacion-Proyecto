@@ -24,20 +24,22 @@ function regexToDFA(){
 		  try { 
 			var nfa = parser.parseToDFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
-			$('#modal_Title1').text('NFA');
-			$('#modal_Title2').text('DFA');
+			$('#modal_Title1').text('DFA');
+			$('#modal_Title2').text('');
 			$("#vizGraphBefore").html(result); 
 		  } catch(e) {
 			$("#vizGraphBefore").html(e);
 		  }
+		$("#vizGraphAfter").html('');
 		$("#vizModal").modal();
 		
 		
 	}else{
 		vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{0}\"; \"{0}\" [peripheries=2]; }";
-		$('#modal_Title1').text('NFA');
-		$('#modal_Title2').text('DFA');
+		$('#modal_Title1').text('DFA');
+		$('#modal_Title2').text('');
         $("#vizGraphBefore").html(Viz(vizText, { format: "svg" }));
+		$("#vizGraphAfter").html('');
         $("#vizModal").modal();
 	}
 }
@@ -57,19 +59,21 @@ function regexToNFA(){
 			var nfa = parser.parseToNFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
 			$('#modal_Title1').text('NFA');
-			$('#modal_Title2').text('DFA');
+			$('#modal_Title2').text('');
 			$("#vizGraphBefore").html(result); 
 		  } catch(e) {
 			$("#vizGraphBefore").html(e);
 		  }
+		$("#vizGraphAfter").html('');
 		$("#vizModal").modal();
 		
 		
 	}else{
 		vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{0}\"; \"{0}\" [peripheries=2]; }";
 		$('#modal_Title1').text('NFA');
-		$('#modal_Title2').text('DFA');
+		$('#modal_Title2').text('');
         $("#vizGraphBefore").html(Viz(vizText, { format: "svg" }));
+		$("#vizGraphAfter").html('');
         $("#vizModal").modal();
 	}
 }
