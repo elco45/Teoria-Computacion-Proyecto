@@ -1,9 +1,10 @@
 function consumeStringDFA(){
-	saveBackup();
 	if(validateAutomataEstructure()){
 	    $('#str_validate').text('DFA definido'); 	
 	    var stringToConsume = $('#str_cadena').val();
-		var isAccepted = recursiveConsumeDFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
+	    var trans = getTransition();
+	    console.log(trans)
+		var isAccepted = recursiveConsumeDFA(trans,getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
 	    if(isAccepted){
 	        if(isAccepted.isAcceptState){
 	            swal("Nice!", "Cadena Aceptada", "success");
