@@ -11,7 +11,7 @@ function consumeStringNFA(){
     if(validateAutomataEstructure()){
         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
-        var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume);
+        var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,new Array());
         if(nodeAns){
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
                 swal("Nice!", "Cadena Aceptada", "success");
@@ -28,17 +28,20 @@ function consumeStringNFA(){
 };
 
 
-function recursiveConsumeNFA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume){
+function recursiveConsumeNFA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume,Route){
+    var route = Route.concat();
     if(ActualPosString == LengthString && Transitions[NextNode].node.isAcceptState){
         var ans = {
             'actualPos': ActualPosString,
-            'node': Transitions[NextNode].node
+            'node': Transitions[NextNode].node,
+            'route': route
         }
         return ans;
     }
     for(var i = 0; i < Transitions[NextNode].links.length; i++){
         if(Transitions[NextNode].links[i].symbol === StringToConsume.charAt(ActualPosString)){
-            var t = recursiveConsumeNFA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume);
+            route.push(Transitions[NextNode].links[i]);
+            var t = recursiveConsumeNFA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,route);
             if(t){
                 if(t.actualPos == LengthString){
                     return t
@@ -46,7 +49,8 @@ function recursiveConsumeNFA(Transitions, NextNode, ActualPosString, LengthStrin
             }
             
         }else if(Transitions[NextNode].links[i].symbol === '#'){
-            var t = recursiveConsumeNFA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume);
+            route.push(Transitions[NextNode].links[i]);
+            var t = recursiveConsumeNFA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume,route);
             if(t){
                 if(t.actualPos == LengthString){
                     return t
