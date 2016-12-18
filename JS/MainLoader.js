@@ -45,7 +45,7 @@ $(document).ready( function() {
 });
 $(document).ready( function() {
     $("#load_TMACHINE").on("click", function() {
-        $("#container-body").load("VIEWS/TMACHINE.html");
+        $("#container-body").load("VIEWS/TURING.html");
         $(document).ready( function() {
             $.getScript('JS/core/fsm.js', function () {          
                 startCanvas();  
