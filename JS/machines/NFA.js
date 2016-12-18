@@ -12,6 +12,7 @@ function consumeStringNFA(){
         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
         var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,new Array());
+        console.log(nodeAns.route)
         if(nodeAns){
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
                 swal("Nice!", "Cadena Aceptada", "success");
