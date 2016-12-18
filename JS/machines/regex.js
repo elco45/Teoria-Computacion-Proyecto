@@ -24,8 +24,8 @@ function regexToDFA(){
 		  try { 
 			var nfa = parser.parseToDFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
-			$('#modal_Title1').text('NFA');
-			$('#modal_Title2').text('DFA');
+			$('#modal_Title1').text('DFA');
+			$('#modal_Title2').hide();
 			$("#vizGraphBefore").html(result); 
 		  } catch(e) {
 			$("#vizGraphBefore").html(e);
