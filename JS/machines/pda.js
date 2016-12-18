@@ -1,5 +1,5 @@
 function consumeStringPDA(){ 
-    saveBackup()
+    //saveBackup()
     var stringToConsume = $('#str_cadena').val();
     var Stack = new Array();
     var nodeAns = recursiveConsumePDA(getTransitionPDA(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,Stack);
@@ -19,7 +19,6 @@ function consumeStringPDA(){
 
 
 function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, Stack){
-    console.log(ActualPosString+","+Transitions[NextNode].node.isAcceptState+","+Stack.length)
     if(ActualPosString == LengthString && Transitions[NextNode].node.isAcceptState && Stack.length == 0){
         var ans = {
             'actualPos': ActualPosString,
