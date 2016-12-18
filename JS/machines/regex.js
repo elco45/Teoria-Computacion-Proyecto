@@ -11,6 +11,7 @@ function verifyRegex(){
 }
 
 function regexToDFA(){
+	console.log("asdasdas")
 	var initialNode = {};
 	var finalNodes = [];
     
@@ -24,23 +25,17 @@ function regexToDFA(){
 		  try { 
 			var nfa = parser.parseToDFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
-			$('#modal_Title1').text('DFA');
-			$('#modal_Title2').text('');
-			$("#vizGraphBefore").html(result); 
+			$('#modal_Title3').text('Regex to DFA: ');
+			$("#vizGraphRegex").html(result); 
 		  } catch(e) {
-			$("#vizGraphBefore").html(e);
+			$("#vizGraphRegex").html(e);
 		  }
-		$("#vizGraphAfter").html('');
-		$("#vizModal").modal();
-		
 		
 	}else{
 		vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{0}\"; \"{0}\" [peripheries=2]; }";
-		$('#modal_Title1').text('DFA');
-		$('#modal_Title2').text('');
-        $("#vizGraphBefore").html(Viz(vizText, { format: "svg" }));
-		$("#vizGraphAfter").html('');
-        $("#vizModal").modal();
+		$('#modal_Title3').text('Regex to DFA:');
+        $("#vizGraphRegex").html(Viz(vizText, { format: "svg" }));
+        $("#vizModalRegex").modal();
 	}
 }
 
@@ -58,22 +53,19 @@ function regexToNFA(){
 		  try { 
 			var nfa = parser.parseToNFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
-			$('#modal_Title1').text('NFA');
-			$('#modal_Title2').text('');
-			$("#vizGraphBefore").html(result); 
+			$('#modal_Title3').text('Regex to NFA: ');
+			$("#vizGraphRegex").html(result); 
 		  } catch(e) {
-			$("#vizGraphBefore").html(e);
+			$("#vizGraphRegex").html(e);
 		  }
-		$("#vizGraphAfter").html('');
-		$("#vizModal").modal();
+		$("#vizGraphRegex").html('');
+		$("#vizModalRegex").modal();
 		
 		
 	}else{
 		vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{0}\"; \"{0}\" [peripheries=2]; }";
-		$('#modal_Title1').text('NFA');
-		$('#modal_Title2').text('');
-        $("#vizGraphBefore").html(Viz(vizText, { format: "svg" }));
-		$("#vizGraphAfter").html('');
-        $("#vizModal").modal();
+		$('#modal_Title3').text('Regex to NFA: ');
+        $("#vizGraphRegex").html(Viz(vizText, { format: "svg" }));
+        $("#vizModalRegex").modal();
 	}
 }
