@@ -79,12 +79,13 @@ function NFAtoDFA(){
                 StatesSpliter=NewStates[i].text.split(",");
                 var tempLinks= new Array;
                 for(var k=0; k<Alphabet.length;k++){  
-                    console.log("Con : "+Alphabet[k]);
+                   // console.log("Con : "+Alphabet[k]);
                     var NodeDeltaUEnode = new Array;
                     var ENode= new Array;            
                     for(var j=0; j<StatesSpliter.length;j++){
-                        //console.log("Con parte de nodo : "+StatesSpliter[j]);             
-                        var DeltaReturn=(FindDelta(Transitions,StatesSpliter[j],Alphabet[k]));                  
+                       // console.log("Con parte de nodo : "+StatesSpliter[j]);             
+                        var DeltaReturn=(FindDelta(Transitions,StatesSpliter[j],Alphabet[k]));
+                       // console.log(DeltaReturn);                  
                         if(DeltaReturn){
                             for(var x=0; x<DeltaReturn.length;x++){
                                 NodeDeltaUEnode.push(DeltaReturn[x]);
@@ -100,6 +101,8 @@ function NFAtoDFA(){
                    //Create Temp link
                     NodeDeltaUEnode=NoDuplicates(NodeDeltaUEnode);
                     var NodetoAdd=findNode(NewStates,createSet(NodeDeltaUEnode));
+                   // console.log("Node to add");
+                    //console.log(NodetoAdd); 
                     tempLinks.push({'symbol': Alphabet[k],'node': NodetoAdd});
                     if(NodetoAdd.text=="Ø"){
                         ReachedMe=true;
@@ -213,8 +216,9 @@ function findNodeID(Nodes,Node){
 };
 
 function findNode(Nodes,Node){
-    var split=Node.split(",");;
+    var split=Node.split(",");
     var counter =0;
+    console.log("Node to find "+Node);
     for(var i=0; i<Nodes.length;i++){
         for(var j=0; j<split.length;j++){
             if(Nodes[i].text.includes(split[j])){
@@ -222,7 +226,9 @@ function findNode(Nodes,Node){
             }   
 
         }
-        if(counter==(Node.length-split.length+1)&&Node.length==Nodes[i].text.length){
+        console.log("Counter :"+counter);
+        console.log("Split length: "+split.length);
+        if(counter==(split.length)&&Node.length==Nodes[i].text.length){
             return Nodes[i];
         }
         counter =0;     
@@ -250,8 +256,12 @@ function getAlphabet(Transitions){
 
 function FindDelta(Transitions,Node,Symbol){
     var NodesToPush = new Array;
+    //console.log(Node);
+    //console.log(Symbol);
     for(var i=0; i<Transitions.length;i++){
+        console.log(Transitions[i].node.text);
         if(Transitions[i].node.text==Node){
+           // console.log("Encontre el nodo" +Transitions[i].node.text+" - "+Node );
            for(var j=0; j<Transitions[i].links.length;j++){
                     if(Transitions[i].links[j].symbol==Symbol){
                         NodesToPush.push(Transitions[i].links[j].node);
