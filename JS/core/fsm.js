@@ -510,11 +510,11 @@ function validateAutomataEstructure(){
     }else if (getFinalNodes().length <= 0){
         $('#str_validate').text('No se ha definido un estado final');       
     }else if(EmptiesStatesNames()){
-        $('#str_validate').text('Los nombres de los estados no pueden estar vacÃ­os');
+        $('#str_validate').text('Los nombres de los estados no pueden estar vacíos');
     }else if(IncompleteTransitionValue()){
-    	 $('#str_validate').text('Los valores de las transiciones no pueden ser : VacÃ­as o incompletas (, o A,)...');
+    	 $('#str_validate').text('Los valores de las transiciones no pueden ser : Vacías o incompletas (, o A,)...');
     }else if(SameStatesNames()){
-    	$('#str_validate').text('Los nombres de los estados deben ser Ãºnicos'); 
+    	$('#str_validate').text('Los nombres de los estados deben ser únicos'); 
     }else if(!searchTransitions()){
     	$('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
     }else{
@@ -719,6 +719,7 @@ function restoreBackup(exampleName) {
 					node.isAcceptState = backupNode.isAcceptState;
 					node.text = backupNode.text;
 					nodes.push(node);
+					alert("hola:"+nodes[0]+":");
 				}
 				for(var i = 0; i < backup.links.length; i++) {
 					var backupLink = backup.links[i];
