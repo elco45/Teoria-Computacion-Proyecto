@@ -17,6 +17,10 @@ Create and share your own machines using a simple format. Examples and exercises
 integrity="sha384-mvYjhBJXQ9VlNETV/xXShy849GsBHnKzVVudnMOcWUVM/6Nd2ksj8VNng5f8ylyX" crossorigin="anonymous">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
 integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+<link href="CSS/main.css" type="text/css" rel="stylesheet">
+<script src="JS/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="CSS/sweetalert.css">   
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn"t work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -209,43 +213,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
                                     Herramientas</h4></a>
                                 </li>
                                 <li>
-                                    <a class="collapsed" data-parent="#sidenav01" data-target="#SubMenu1" data-toggle="collapse" href="#"><span class="glyphicon glyphicon-ok-sign"></span> Lenguajes Regulares<span class="caret pull-right"></span></a>
-                                    <div class="collapse" id="SubMenu1" style="height: 0px;">
-                                        <ul class="nav nav-list">
-                                            <li>
-                                                <a href="#" id="load_DFA">DFA</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" id="load_NFA">NFA</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" id="load_REGEX">Regex</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="collapsed" data-parent="#sidenav01" data-target="#SubMenu2" data-toggle="collapse" href="#"><span class="glyphicon glyphicon-cloud"></span> Lenguajes de Contexto<span class="caret pull-right"></span></a>
-                                    <div class="collapse" id="SubMenu2" style="height: 0px;">
-                                        <ul class="nav nav-list">
-                                            <li>
-                                                <a href="#" id="load_PDA">PDA</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" id="load_CFG">CFG</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="collapsed" data-parent="#sidenav01" data-target="#SubMenu3" data-toggle="collapse" href="#"><span class="glyphicon glyphicon-retweet"></span> Lenguajes Decidibles<span class="caret pull-right"></span></a>
-                                    <div class="collapse" id="SubMenu3" style="height: 0px;">
-                                        <ul class="nav nav-list">
-                                            <li>
-                                                <a href="#" id="load_TMACHINE">Turing Machine</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <a href = "../index.html">Regresar</a>
                                 </li>
                             </ul>
                         </div>
@@ -863,6 +831,24 @@ aria-labelledby="importDialogHeader">
 </div>
 </div>
 </div>
+
+
+		<script src="JS/MainLoader4TM.js"></script> 
+        <script src="JS/core/math.js"></script>
+        <script src="JS/elements/link.js"></script>
+        <script src="JS/elements/node.js"></script>
+        <script src="JS/elements/self_link.js"></script>
+        <script src="JS/elements/start_link.js"></script>
+        <script src="JS/elements/temporary_link.js"></script>
+        <script src="JS/export_as/latex.js"></script>
+        <script src="JS/export_as/svg.js"></script>
+        <script src="JS/machines/DFA.js"></script>
+        <script src="JS/machines/NFA.js"></script>
+		<script src="JS/regex2nfa/regparser-browser.js"></script>
+        <script src="JS/machines/regex.js"></script>
+        <script src="JS/machines/pda.js"></script>
+        <script src="JS/machines/turing.js"></script>
+        <script src="JS/viz/viz.js"></script>
 
 </body>
 </html>
