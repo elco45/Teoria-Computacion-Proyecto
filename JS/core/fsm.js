@@ -430,12 +430,17 @@ function getFinalNodes(){
 }
 
 function getTransition(){
+	finalNodes = new Array();
+	initialNode = {};
 	var transitions = new Array;
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
 			'node': nodes[i],
 			'links': []
 		})
+		if(nodes[i].isAcceptState){
+			finalNodes.push(nodes[i])
+		}
 	}
 	for(var i = 0; i < transitions.length; i++){
 		for(var j = 0; j < links.length; j++){
@@ -505,16 +510,17 @@ function drawGraphDFA(InitialNode, Transitions, FinalNodes){
 }
 
 function validateAutomataEstructure(){
+	getTransition()
     if(typeof getInitialNode().idNext=='undefined'){
         $('#str_validate').text('No se ha definido un estado inicial');
     }else if (getFinalNodes().length <= 0){
         $('#str_validate').text('No se ha definido un estado final');       
     }else if(EmptiesStatesNames()){
-        $('#str_validate').text('Los nombres de los estados no pueden estar vacíos');
+        $('#str_validate').text('Los nombres de los estados no pueden estar vacï¿½os');
     }else if(IncompleteTransitionValue()){
-    	 $('#str_validate').text('Los valores de las transiciones no pueden ser : Vacías o incompletas (, o A,)...');
+    	 $('#str_validate').text('Los valores de las transiciones no pueden ser : Vacï¿½as o incompletas (, o A,)...');
     }else if(SameStatesNames()){
-    	$('#str_validate').text('Los nombres de los estados deben ser únicos'); 
+    	$('#str_validate').text('Los nombres de los estados deben ser ï¿½nicos'); 
     }else if(!searchTransitions()){
     	$('#str_validate').text('No se han hecho las transiciones correspondientes entre estados'); 
     }else{
@@ -630,6 +636,7 @@ function NoDuplicates(Array){
 
 
 function getTransitionPDA(){
+	
 	var transitions = new Array;
 	for(var i = 0; i < nodes.length; i++){
 		transitions.push({
@@ -765,7 +772,7 @@ var allExamples = [
 	"{\"nodes\":[{\"x\":378.4125061035156,\"y\":176.39999961853027,\"text\":\"q0\",\"isAcceptState\":true,\"idNext\":0},{\"x\":251.41250610351562,\"y\":339.3999996185303,\"text\":\"q1\",\"isAcceptState\":false,\"idNext\":1},{\"x\":535.4125061035156,\"y\":339.3999996185303,\"text\":\"q2\",\"isAcceptState\":false,\"idNext\":2}],\"links\":[{\"type\":\"StartLink\",\"node\":0,\"text\":\"\",\"deltaX\":-9,\"deltaY\":-88},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":1,\"text\":\"b\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":2,\"text\":\"a,b\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":0,\"text\":\"a\",\"lineAngleAdjust\":0,\"parallelPart\":0.4155179819594673,\"perpendicularPart\":36.42727423152349},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":2,\"text\":\"#\",\"lineAngleAdjust\":0,\"parallelPart\":0.4827209184271154,\"perpendicularPart\":17.754098479168047},{\"type\":\"SelfLink\",\"node\":1,\"text\":\"a\",\"anchorAngle\":3.141592653589793}]}",
 	"{\"nodes\":[{\"x\":140.41250610351562,\"y\":223.4000015258789,\"text\":\"q1\",\"isAcceptState\":false,\"idNext\":0},{\"x\":309.4125061035156,\"y\":223.4000015258789,\"text\":\"q2\",\"isAcceptState\":false,\"idNext\":1},{\"x\":464.4125061035156,\"y\":223.4000015258789,\"text\":\"q3\",\"isAcceptState\":false,\"idNext\":2},{\"x\":621.4125061035156,\"y\":223.4000015258789,\"text\":\"q4\",\"isAcceptState\":true,\"idNext\":3}],\"links\":[{\"type\":\"StartLink\",\"node\":0,\"text\":\"\",\"deltaX\":-56,\"deltaY\":0},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":1,\"text\":\"1\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.5441130188481309,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":2,\"text\":\"0,#\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.4838709677419355,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":3,\"text\":\"1\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.4713375796178344,\"perpendicularPart\":0},{\"type\":\"SelfLink\",\"node\":0,\"text\":\"0,1\",\"anchorAngle\":1.5707963267948966},{\"type\":\"SelfLink\",\"node\":3,\"text\":\"0,1\",\"anchorAngle\":1.5707963267948966}]}",
 	"{\"nodes\":[{\"x\":260.4125061035156,\"y\":200.39999961853027,\"text\":\"q1\",\"isAcceptState\":true,\"idNext\":0},{\"x\":550.4125061035156,\"y\":200.39999961853027,\"text\":\"q2\",\"isAcceptState\":false,\"idNext\":1},{\"x\":550.4125061035156,\"y\":391.3999996185303,\"text\":\"q3\",\"isAcceptState\":false,\"idNext\":2},{\"x\":260.4125061035156,\"y\":391.3999996185303,\"text\":\"q4\",\"isAcceptState\":true,\"idNext\":3}],\"links\":[{\"type\":\"StartLink\",\"node\":0,\"text\":\"\",\"deltaX\":-89,\"deltaY\":0},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":1,\"text\":\"#,#->$\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.44482758620689655,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":2,\"text\":\"1,0->#\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.5497382198952879,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":3,\"text\":\"#,$->#\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"SelfLink\",\"node\":1,\"text\":\"0,#->0\",\"anchorAngle\":0},{\"type\":\"SelfLink\",\"node\":2,\"text\":\"1,0->#\",\"anchorAngle\":0}]}",
-	"{\"nodes\":[{\"x\":254.41250610351562,\"y\":187.39999389648438,\"text\":\"q1\",\"isAcceptState\":true,\"idNext\":0},{\"x\":512.4125061035156,\"y\":187.39999389648438,\"text\":\"q2\",\"isAcceptState\":false,\"idNext\":1},{\"x\":512.4125061035156,\"y\":358.3999996185303,\"text\":\"q3\",\"isAcceptState\":false,\"idNext\":2},{\"x\":248.41250610351562,\"y\":358.3999996185303,\"text\":\"q4\",\"isAcceptState\":true,\"idNext\":3}],\"links\":[{\"type\":\"StartLink\",\"node\":0,\"text\":\"\",\"deltaX\":-78,\"deltaY\":0},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":1,\"text\":\"#,#->$\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.4108527131782946,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":2,\"text\":\"#,#->#\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":3,\"text\":\"#,$->#\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"SelfLink\",\"node\":1,\"text\":\"0,#->0\",\"anchorAngle\":-1.1055974821988623},{\"type\":\"SelfLink\",\"node\":1,\"text\":\"1,#->1\",\"anchorAngle\":0.11497287766307127},{\"type\":\"SelfLink\",\"node\":2,\"text\":\"1,1->#\",\"anchorAngle\":-0.20619298684366066},{\"type\":\"SelfLink\",\"node\":2,\"text\":\"0,0->#\",\"anchorAngle\":1.0863183977578734}]}",
+	"{\"nodes\":[{\"x\":184.41250610351562,\"y\":255.1999969482422,\"text\":\"q0\",\"isAcceptState\":true,\"idNext\":0},{\"x\":408.4125061035156,\"y\":255.1999969482422,\"text\":\"q1\",\"isAcceptState\":false,\"idNext\":1},{\"x\":546.4125061035156,\"y\":131.1999969482422,\"text\":\"q2\",\"isAcceptState\":false,\"idNext\":2},{\"x\":538.4125061035156,\"y\":385.1999969482422,\"text\":\"q3\",\"isAcceptState\":false,\"idNext\":3}],\"links\":[{\"type\":\"StartLink\",\"node\":0,\"text\":\"\",\"deltaX\":-68,\"deltaY\":0},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":1,\"text\":\"#,#->$\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.38095238095238093,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":2,\"text\":\"0,#->*\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.42160278745644597,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":3,\"text\":\"1,#->*\",\"lineAngleAdjust\":0,\"parallelPart\":0.3904932983280365,\"perpendicularPart\":0},{\"type\":\"SelfLink\",\"node\":2,\"text\":\"0,#->*\",\"anchorAngle\":-0.6503396294450532},{\"type\":\"SelfLink\",\"node\":2,\"text\":\"1,*->#\",\"anchorAngle\":0.5016399653210704},{\"type\":\"SelfLink\",\"node\":3,\"text\":\"1,#->*\",\"anchorAngle\":-0.5387299723017325},{\"type\":\"SelfLink\",\"node\":3,\"text\":\"0,*->#\",\"anchorAngle\":0.6288692474957744},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":0,\"text\":\"#,$->#\",\"lineAngleAdjust\":0,\"parallelPart\":0.5990165294120422,\"perpendicularPart\":83.80010786139225},{\"type\":\"Link\",\"nodeA\":3,\"nodeB\":0,\"text\":\"#,$->#\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.5134865257920675,\"perpendicularPart\":-93.48333100044542}]}",
 	"{\"nodes\":[{\"x\":145.41250610351562,\"y\":207.39999389648438,\"text\":\"q1\",\"isAcceptState\":false,\"idNext\":0},{\"x\":349.4125061035156,\"y\":207.39999389648438,\"text\":\"q2\",\"isAcceptState\":false,\"idNext\":1},{\"x\":579.4125061035156,\"y\":207.39999389648438,\"text\":\"q3\",\"isAcceptState\":false,\"idNext\":2},{\"x\":473.4125061035156,\"y\":89.39999389648438,\"text\":\"q5\",\"isAcceptState\":false,\"idNext\":3},{\"x\":145.41250610351562,\"y\":392.4000015258789,\"text\":\"qr\",\"isAcceptState\":true,\"idNext\":4},{\"x\":349.4125061035156,\"y\":400.4000015258789,\"text\":\"qa\",\"isAcceptState\":true,\"idNext\":5},{\"x\":579.4125061035156,\"y\":400.4000015258789,\"text\":\"q4\",\"isAcceptState\":false,\"idNext\":6}],\"links\":[{\"type\":\"StartLink\",\"node\":0,\"text\":\"\",\"deltaX\":0,\"deltaY\":-74},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":4,\"text\":\"#->R\",\"lineAngleAdjust\":0,\"parallelPart\":0.32432435218916805,\"perpendicularPart\":11},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":5,\"text\":\"#->R\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":1,\"text\":\"0->#,R\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.553921568627451,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":1,\"nodeB\":2,\"text\":\"0->X,R\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.39565217391304347,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":3,\"text\":\"#->L\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"Link\",\"nodeA\":3,\"nodeB\":1,\"text\":\"#->R\",\"lineAngleAdjust\":0,\"parallelPart\":0.5,\"perpendicularPart\":0},{\"type\":\"SelfLink\",\"node\":3,\"text\":\"0->L\",\"anchorAngle\":-0.2956226613928249},{\"type\":\"SelfLink\",\"node\":2,\"text\":\"X->R\",\"anchorAngle\":0},{\"type\":\"Link\",\"nodeA\":6,\"nodeB\":2,\"text\":\"0->X,R\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.36787563312607074,\"perpendicularPart\":-34},{\"type\":\"Link\",\"nodeA\":2,\"nodeB\":6,\"text\":\"0->R\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.45595857072905027,\"perpendicularPart\":-33},{\"type\":\"SelfLink\",\"node\":6,\"text\":\"X->R\",\"anchorAngle\":0},{\"type\":\"Link\",\"nodeA\":6,\"nodeB\":4,\"text\":\"#->R\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.46917524678908823,\"perpendicularPart\":-74.76610083019592},{\"type\":\"SelfLink\",\"node\":3,\"text\":\"X->L\",\"anchorAngle\":-2.8536865582200734},{\"type\":\"SelfLink\",\"node\":1,\"text\":\"X->R\",\"anchorAngle\":0.6520366857274268},{\"type\":\"Link\",\"nodeA\":0,\"nodeB\":4,\"text\":\"X->R\",\"lineAngleAdjust\":3.141592653589793,\"parallelPart\":0.47567569729879444,\"perpendicularPart\":-11}]}"
 ]
 
