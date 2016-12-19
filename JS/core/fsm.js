@@ -481,6 +481,54 @@ function getTransition(){
 	return transitions
 }
 
+function getTransitionNoSplit(){
+	finalNodes = new Array();
+	initialNode = {};
+	var transitions = new Array;
+	for(var i = 0; i < nodes.length; i++){
+		transitions.push({
+			'node': nodes[i],
+			'links': []
+		})
+		if(nodes[i].isAcceptState){
+			finalNodes.push(nodes[i])
+		}
+	}
+	for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < links.length; j++){
+			if(links[j] instanceof Link){
+				if(transitions[i].node === links[j].nodeA){
+						transitions[i].links.push({
+							'symbol': links[j].text,
+							'node': links[j].nodeB
+						})
+					
+				}
+			}else if(links[j] instanceof SelfLink){
+				if(transitions[i].node === links[j].node){
+						transitions[i].links.push({
+							'symbol': links[j].text,
+							'node': links[j].node
+						})
+					
+				}
+			}else if(links[j] instanceof StartLink){
+				initialNode = links[j].node
+			}
+		}
+	}
+    for(var i = 0; i < transitions.length; i++){
+		for(var j = 0; j < transitions[i].links.length; j++){
+			for(var k = 0; k < transitions.length; k++){
+				if(transitions[i].links[j].node.idNext == transitions[k].node.idNext){
+					transitions[i].links[j].node.idNext = k;
+				}
+			}
+		}	
+	}
+	return transitions
+}
+
 function drawGraph(InitialNode, Transitions, FinalNodes){
 	var vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{" + InitialNode.text + "}\";";
 	for(var i = 0; i < FinalNodes.length; i++){

@@ -350,30 +350,59 @@ function recursiveFindE(Transitions, Node,NextNode, ArrayE,InitialNode){
 };
 
 function NFAtoREGEX(){
-    var Transitions = getTransition();
-    var InitialNode = getInitialNode();
-    var FinalNodes = getFinalNodes();
-    var ArrayE = new Array;
-    var tempArrayE = new Array;
-    var Childs=0;
-    var Nodes = getNodes();
-    console.log(Transitions);
 
-    for(var i=0; i<Nodes.length;i++){
+     if(validateAutomataEstructure()){
+            $('#str_validate').text('NFA definido'); 
+            var Transitions = getTransitionNoSplit();
+            var InitialNode = getInitialNode();
+            var FinalNodes = getFinalNodes();
+            var ArrayE = new Array;
+            var tempArrayE = new Array;
+            var Childs=0;
+            var Nodes = getNodes();
+            JoinTransitions(Transitions);
+            selfTransitios(Transitions);   
+            console.log(Transitions);
 
-        Nodes[i].setMarked(false);
+            graph =new Graph(); // creates a graph
+            for(var i=0; i<Nodes.length;i++){
 
-    }
+               node=graph.addNode(Transitions[i].node.text);
 
-    for(var i=0;i< FinalNodes.length;i++){
+            }
 
-       console.log(FinalNodes);
-       console.log(getAllPaths(Transitions,InitialNode,InitialNode.idNext, ArrayE,InitialNode,FinalNodes[i],tempArrayE,Childs));
-       console.log(ArrayE);  
-    }
+            for(var X=0; X<graph.NODES.length;X++){
+                for(var i=0; i<Transitions.length;i++){
+                    if(graph.NODES[X].name==Transitions[i].node.text){
+                         for(var j=0;j<Transitions[i].links.length;j++){           
+                                graph.NODES[i].addEdge(Transitions[i].links[j].node.text,Transitions[i].links[j].symbol);
+                         }
+                    }
+                }
 
-   
+            }
+            console.log(graph);
+            console.log(graph.NODES.length);     
+            var Expression="";
+            if(FinalNodes.length==1){
+                //Only one Final states
+                for(var i=0;i<graph.NODES.length;i++){
+                    for(var j=0;j<graph.NODES[i].weight.length;j++){
+                        Expression+=graph.NODES[i].weight[j];
+                    }
 
+                    
+                }
+
+                console.log(Expression);
+                $('#str_expresion').text(Expression);
+                Expression="";
+            }else{
+
+                console.log("NODE PODERS");
+            }
+
+   }
 };
 
 function getAllPaths(Transitions, Node,NextNode, ArrayE,InitialNode,FinalNode,tempArrayE,Childs){
@@ -407,3 +436,36 @@ function getAllPaths(Transitions, Node,NextNode, ArrayE,InitialNode,FinalNode,te
 
 
 };
+
+function JoinTransitions(Transitions){
+    var newString="";
+    var Split =null;
+    for(var i =0 ; i<Transitions.length;i++){
+        console.log(Transitions[i]);
+        for(var k=0; k<Transitions[i].links.length;k++){
+            Split=Transitions[i].links[k].symbol.split(",");
+            if(Split.length>1){
+                for(var j=0; j<Split.length;j++){
+                    newString+=Split[j]+"+";
+                }
+                newString=newString.slice(0, -1);
+                Transitions[i].links[k].symbol="("+newString+")";
+                newString="";   
+            }
+        }
+    }
+
+};
+
+function selfTransitios(Transitions){
+
+    for(var i =0 ; i<Transitions.length;i++){
+        for(var k=0; k<Transitions[i].links.length;k++){
+            if(Transitions[i].links[k].node.text==Transitions[i].node.text){
+                Transitions[i].links[k].symbol=Transitions[i].links[k].symbol+"*";   
+            }
+        }
+    }
+
+};
+
