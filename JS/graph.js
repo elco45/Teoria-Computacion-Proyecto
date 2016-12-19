@@ -117,7 +117,7 @@ function dfs(graph,index){
 		console.log(v);
 		ans.push(v);
 		for (var i=0;i<adjList.length;i++){
-			u=findNode(adjList[i],graph);
+			u=findNodeADJ(adjList[i],graph);
 			if(marked[u.name]!=true){
 				traversedNodes.push(u);
 				marked[u.name]=true;
@@ -127,7 +127,7 @@ function dfs(graph,index){
 	return ans;
 }
 
-function findNode(Name,graph){
+function findNodeADJ(Name,graph){
 
 	for(var i=0;i<graph.NODES.length;i++){
 		if(graph.NODES[i].name==Name){
