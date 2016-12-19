@@ -418,6 +418,8 @@ function NFAtoREGEX(){
 
                 console.log("NODE PODERS");
             }
+            console.log(graph);
+            console.log(dfsMOD(graph));
 
    }
 };
