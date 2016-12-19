@@ -36,14 +36,14 @@ function consumeStringNFA(){
 function addAnimation(link, time,color, last) {
     setTimeout(function() {
         link.changeColor(color);
-    }, 300 * time);
+    }, 250 * time);
     setTimeout(function() {
         link.changeColor('black');
-    }, 380 * time);
+    }, 300 * time);
     if(last){
         setTimeout(function() {
             swal("Nice!", "Cadena Aceptada", "success");
-        }, 380 * time);
+        }, 300 * time);
     }
 };
 
