@@ -108,7 +108,6 @@ class PrettyPrinter {
   static pyramidToHtml(pyramid, word) {
     let pyramidDiv = document.createElement("div");
     pyramidDiv.classList.add("CYK-pyramid");
-    
     let separatorText = document.createTextNode(",");
     let emptyText = document.createTextNode("∅");
     
