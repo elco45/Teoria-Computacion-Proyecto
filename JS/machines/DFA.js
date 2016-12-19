@@ -9,7 +9,7 @@ function consumeStringDFA(){
 			var isAccepted = recursiveConsumeDFA(trans,getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0,route);
 		    if(isAccepted){
 		        if(isAccepted.node.isAcceptState){
-		        	console.log(isAccepted.route)
+		        	
 		            for(var i = 0; i < isAccepted.route.length; i++){
 	                    if(i == isAccepted.route.length-1){
 	                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',true);
@@ -37,11 +37,11 @@ function addAnimation(link, time,color, last) {
     }, 300 * time);
     setTimeout(function() {
         link.changeColor('black');
-    }, 400 * time);
+    }, 380 * time);
     if(last){
         setTimeout(function() {
             swal("Nice!", "Cadena Aceptada", "success");
-        }, 400 * time);
+        }, 380 * time);
     }
 };
 

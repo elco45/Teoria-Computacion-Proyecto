@@ -7,7 +7,7 @@ function consumeStringPDA(){
     console.log(nodeAns)
     if(nodeAns){
         if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState && nodeAns.stack == 0){
-            console.log("asd")
+            
             for(var i = 0; i < nodeAns.route.length; i++){
                 if(i == nodeAns.route.length-1){
                     addAnimation(nodeAns.route[i].links,(i+1)*7,'red',true);
@@ -31,11 +31,11 @@ function addAnimation(link, time,color, last) {
     }, 300 * time);
     setTimeout(function() {
         link.changeColor('black');
-    }, 400 * time);
+    }, 380 * time);
     if(last){
         setTimeout(function() {
             swal("Nice!", "Cadena Aceptada", "success");
-        }, 400 * time);
+        }, 380 * time);
     }
 };
 

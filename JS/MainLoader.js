@@ -41,6 +41,16 @@ $(document).ready( function() {
 $(document).ready( function() {
     $("#load_CFG").on("click", function() {
         $("#container-body").load("VIEWS/CFG.html");
+        $(document).ready( function() {
+            $.getScript('JS/CFGrammar/built.js', function () {    
+                initializeGrammarDOM();
+            });
+        });
+    });
+});
+$(document).ready( function() {
+    $("#load_CFGtoCNF").on("click", function() {
+        $("#container-body").load("VIEWS/CFGtoCNF.html");
     });
 });
 $(document).ready( function() {
