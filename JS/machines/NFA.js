@@ -13,14 +13,18 @@ function consumeStringNFA(){
         var stringToConsume = $('#str_cadena').val();
         var route = new Array();
         var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,route);
-        for(var i = 0; i < nodeAns.route.length; i++){
-            addAnimation(nodeAns.route[i].links,i*7,'red')
-        }
         if(nodeAns){
+            
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
-                swal("Nice!", "Cadena Aceptada", "success");
+                for(var i = 0; i < nodeAns.route.length; i++){
+                    if(i == nodeAns.route.length-1){
+                        addAnimation(nodeAns.route[i].links,(i+1)*7,'red',true);
+                    }else{
+                        addAnimation(nodeAns.route[i].links,(i+1)*7,'red',false);
+                    }
+                }
             }else{
-                   swal("Opps", "Cadena Rechazada", "error");
+                swal("Opps", "Cadena Rechazada", "error");
             }
         }else{
             swal("Opps", "Cadena Rechazada", "error");
@@ -29,13 +33,18 @@ function consumeStringNFA(){
     }
 };
 
-var addAnimation = function(link, time,color) {
+function addAnimation(link, time,color, last) {
     setTimeout(function() {
-        link.changeColor(canvas.getContext('2d'),color);
+        link.changeColor(color);
     }, 300 * time);
     setTimeout(function() {
-        link.changeColor(canvas.getContext('2d'),'black');
-    }, 300 );
+        link.changeColor('black');
+    }, 400 * time);
+    if(last){
+        setTimeout(function() {
+            swal("Nice!", "Cadena Aceptada", "success");
+        }, 400 * time);
+    }
 };
 
 function pause( time, node ){
@@ -357,7 +366,60 @@ function recursiveFindE(Transitions, Node,NextNode, ArrayE,InitialNode){
 };
 
 function NFAtoREGEX(){
+    var Transitions = getTransition();
+    var InitialNode = getInitialNode();
+    var FinalNodes = getFinalNodes();
+    var ArrayE = new Array;
+    var tempArrayE = new Array;
+    var Childs=0;
+    var Nodes = getNodes();
+    console.log(Transitions);
 
+    for(var i=0; i<Nodes.length;i++){
+
+        Nodes[i].setMarked(false);
+
+    }
+
+    for(var i=0;i< FinalNodes.length;i++){
+
+       console.log(FinalNodes);
+       console.log(getAllPaths(Transitions,InitialNode,InitialNode.idNext, ArrayE,InitialNode,FinalNodes[i],tempArrayE,Childs));
+       console.log(ArrayE);  
+    }
+
+   
+
+};
+
+function getAllPaths(Transitions, Node,NextNode, ArrayE,InitialNode,FinalNode,tempArrayE,Childs){
+    console.log("Estoy en NODO: "+Node.text);
+    for(var i=0; i<Transitions[NextNode].links.length;i++){
+        if(Transitions[NextNode].links[i].node.marked==false &&Transitions[NextNode].links[i].node.text!=Node.text){
+            console.log("No carmado");
+            console.log(Transitions[NextNode].links[i].node.text);
+                if(!arrayContains(Transitions[NextNode].links[i].node.text),tempArrayE){
+                    tempArrayE.push(Transitions[NextNode].links[i].node.text);                    
+                    var SaveStates= getAllPaths(Transitions, Transitions[Transitions[NextNode].links[i].node.idNext].node,Transitions[NextNode].links[i].node.idNext, ArrayE,InitialNode,FinalNode,tempArrayE,Childs);
+                    if(SaveStates!=null){
+                        return SaveStates;
+                    }                   
+                }
+  
+            }else{
+                console.log("Nodo Ya marcado");
+            }
+
+         Transitions[NextNode].node.setMarked(true);
+            
+     
+    }
+    if(Transitions[NextNode].node.text==FinalNode.text){
+        tempArrayE.push(InitialNode.text);
+        tempArrayE= NoDuplicates(tempArrayE);
+        ArrayE.push(tempArrayE);
+        tempArrayE= new Array;
+    }
 
 
 };

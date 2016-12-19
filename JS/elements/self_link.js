@@ -7,7 +7,11 @@ function SelfLink(node, mouse) {
 	if(mouse) {
 		this.setAnchorPoint(mouse.x, mouse.y);
 	}
-}
+};
+
+SelfLink.prototype.changeColor = function(color){
+	this.strokeStyle=color
+};
 
 SelfLink.prototype.setMouseStart = function(x, y) {
 	this.mouseOffsetAngle = this.anchorAngle - Math.atan2(y - this.node.y, x - this.node.x);
@@ -52,6 +56,7 @@ SelfLink.prototype.draw = function(c) {
 	// draw arc
 	c.beginPath();
 	c.arc(stuff.circleX, stuff.circleY, stuff.circleRadius, stuff.startAngle, stuff.endAngle, false);
+	c.strokeStyle = this.strokeStyle?this.strokeStyle:'black';
 	c.stroke();
 	// draw the text on the loop farthest from the node
 	var textX = stuff.circleX + stuff.circleRadius * Math.cos(this.anchorAngle);
