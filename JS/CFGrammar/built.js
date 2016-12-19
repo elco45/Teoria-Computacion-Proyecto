@@ -1200,8 +1200,7 @@ function resetGrammar() {
  * Handler to fill in an example CFG.
  */
 function exampleGrammar(withoutConfirm) {
-  var msg = 'Showing an example CFG will overwrite the current CFG *and* ' +
-            'test strings. Are you sure?';
+  var msg = 'Al realizar esta acción se modificará el resultado, esta seguro?';
   if (withoutConfirm || window.confirm(msg)) {
     $('#test-input').val('1+2');
     loadGrammar(Grammar([
@@ -1430,8 +1429,7 @@ function testCFG() {
       lastTd.append($('<a/>', {
         'data-toggle': 'collapse',
         'class': 'derivation-toggle',
-        'data-target': '#deriv-' + i + 'B',
-        'html': 'Derivation'
+        'data-target': '#deriv-' + i + 'B'
       }));
       derivationRow = getDerivationRow(parses[1], i + 'B');
       tbody.append(derivationRow);
