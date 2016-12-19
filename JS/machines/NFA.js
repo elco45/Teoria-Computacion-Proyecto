@@ -13,14 +13,18 @@ function consumeStringNFA(){
         var stringToConsume = $('#str_cadena').val();
         var route = new Array();
         var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,route);
-        for(var i = 0; i < nodeAns.route.length; i++){
-            addAnimation(nodeAns.route[i].links,i*7,'red')
-        }
         if(nodeAns){
+            
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
-                swal("Nice!", "Cadena Aceptada", "success");
+                for(var i = 0; i < nodeAns.route.length; i++){
+                    if(i == nodeAns.route.length-1){
+                        addAnimation(nodeAns.route[i].links,i*7,'red',true);
+                    }else{
+                        addAnimation(nodeAns.route[i].links,i*7,'red',false);
+                    }
+                }
             }else{
-                   swal("Opps", "Cadena Rechazada", "error");
+                swal("Opps", "Cadena Rechazada", "error");
             }
         }else{
             swal("Opps", "Cadena Rechazada", "error");
@@ -29,13 +33,18 @@ function consumeStringNFA(){
     }
 };
 
-var addAnimation = function(link, time,color) {
+function addAnimation(link, time,color, last) {
     setTimeout(function() {
-        link.changeColor(canvas.getContext('2d'),color);
+        link.changeColor(color);
     }, 300 * time);
     setTimeout(function() {
-        link.changeColor(canvas.getContext('2d'),'black');
-    }, 300 );
+        link.changeColor('black');
+    }, 400 * time);
+    if(last){
+        setTimeout(function() {
+            swal("Nice!", "Cadena Aceptada", "success");
+        }, 400 * time);
+    }
 };
 
 function pause( time, node ){

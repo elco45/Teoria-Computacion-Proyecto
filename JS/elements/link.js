@@ -7,15 +7,12 @@ function Link(a, b) {
 	// make anchor point relative to the locations of nodeA and nodeB
 	this.parallelPart = 0.5; // percentage from nodeA to nodeB
 	this.perpendicularPart = 0; // pixels from line between nodeA and nodeB
-}
-
-Link.prototype.changeColor = function(c,color){
-	console.log("asd")
-	c.beginPath();
-	c.strokeStyle = color 
-	c.stroke()
-	c.closePath();
 };
+
+Link.prototype.changeColor = function(color){
+	this.strokeStyle = color;
+};
+
 
 Link.prototype.getAnchorPoint = function() {
 	var dx = this.nodeB.x - this.nodeA.x;
@@ -90,7 +87,7 @@ Link.prototype.draw = function(c) {
 		c.moveTo(stuff.startX, stuff.startY);
 		c.lineTo(stuff.endX, stuff.endY);
 	}
-	c.strokeStyle = this.strokeStyle?this.strokeStyle:'white';
+	c.strokeStyle = this.strokeStyle?this.strokeStyle:'black';
 	c.stroke();
 	// draw the head of the arrow
 	if(stuff.hasCircle) {
