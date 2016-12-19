@@ -621,7 +621,11 @@ function searchTransitions(){
 
 function arrayContains(node, nodes)
 {
-    return (nodes.indexOf(node) > -1);
+	if(nodes && nodes.length){
+    	return (nodes.indexOf(node) > -1);
+	}
+	console.log("Empty");
+	return false;
 }
 
 function NoDuplicates(Array){

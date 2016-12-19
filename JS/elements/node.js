@@ -7,6 +7,7 @@ function Node(x, y, idNext) {
 	this.mouseOffsetY = 0;
 	this.isAcceptState = false;
 	this.text = '';
+	this.marked=false;
 }
 
 Node.prototype.changeColor = function(c){
@@ -19,6 +20,10 @@ Node.prototype.changeColor = function(c){
 
 Node.prototype.setText = function(text){
 	this.text=text;
+};
+
+Node.prototype.setMarked = function(Mark){
+	this.marked=Mark;
 };
 
 Node.prototype.getText = function(){
