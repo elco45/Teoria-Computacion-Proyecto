@@ -9,11 +9,11 @@ function Node(x, y, idNext) {
 	this.text = '';
 }
 
-Node.prototype.changeColor = function(c){
+Node.prototype.changeColor = function(c,color){
 	c.beginPath();
 	c.arc(this.x,this.y,nodeRadius, 0, 2 * Math.PI, false)
-	c.fillStyle = 'red' 
-	c.fill()
+	c.strokeStyle = color 
+	c.stroke()
 	c.closePath();
 }
 

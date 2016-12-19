@@ -3,7 +3,6 @@ function consumeStringDFA(){
 	    $('#str_validate').text('DFA definido'); 	
 	    var stringToConsume = $('#str_cadena').val();
 	    var trans = getTransition();
-	    console.log(trans)
 		var isAccepted = recursiveConsumeDFA(trans,getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0);
 	    if(isAccepted){
 	        if(isAccepted.isAcceptState){
@@ -19,10 +18,17 @@ function consumeStringDFA(){
 	}
 };
 
+var addAnimation = function(link, time,color) {
+    setTimeout(function() {
+        link.changeColor(canvas.getContext('2d'),color);
+    }, 300 * time);
+    setTimeout(function() {
+        link.changeColor(canvas.getContext('2d'),'black');
+    }, 300 );
+};
 
 var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, LinkPos){
-	Transitions[NextNode].node.changeColor(canvas.getContext('2d'));
-		
+	addAnimation(Transitions[NextNode].links,7,'red')
     if(ActualPosString === LengthString){
         return Transitions[NextNode].node;
     }else{

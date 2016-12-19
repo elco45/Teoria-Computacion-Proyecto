@@ -9,6 +9,14 @@ function Link(a, b) {
 	this.perpendicularPart = 0; // pixels from line between nodeA and nodeB
 }
 
+Link.prototype.changeColor = function(c,color){
+	console.log("asd")
+	c.beginPath();
+	c.strokeStyle = color 
+	c.stroke()
+	c.closePath();
+};
+
 Link.prototype.getAnchorPoint = function() {
 	var dx = this.nodeB.x - this.nodeA.x;
 	var dy = this.nodeB.y - this.nodeA.y;
@@ -82,6 +90,7 @@ Link.prototype.draw = function(c) {
 		c.moveTo(stuff.startX, stuff.startY);
 		c.lineTo(stuff.endX, stuff.endY);
 	}
+	c.strokeStyle = this.strokeStyle?this.strokeStyle:'white';
 	c.stroke();
 	// draw the head of the arrow
 	if(stuff.hasCircle) {
