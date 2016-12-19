@@ -10,13 +10,10 @@ function Node(x, y, idNext) {
 	this.marked=false;
 }
 
-Node.prototype.changeColor = function(c,color){
-	c.beginPath();
-	c.arc(this.x,this.y,nodeRadius, 0, 2 * Math.PI, false)
-	c.strokeStyle = color 
-	c.stroke()
-	c.closePath();
-}
+Node.prototype.changeColor = function(color){
+	this.strokeStyle = color;
+};
+
 
 Node.prototype.setText = function(text){
 	this.text=text;
@@ -45,6 +42,7 @@ Node.prototype.draw = function(c) {
 	// draw the circle
 	c.beginPath();
 	c.arc(this.x, this.y, nodeRadius, 0, 2 * Math.PI, false);
+	c.strokeStyle = this.strokeStyle?this.strokeStyle:'black';
 	c.stroke();
 
 	// draw the text

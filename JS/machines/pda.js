@@ -2,11 +2,19 @@ function consumeStringPDA(){
     //saveBackup()
     var stringToConsume = $('#str_cadena').val();
     var Stack = new Array();
-    var nodeAns = recursiveConsumePDA(getTransitionPDA(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,Stack);
+    var route = new Array();
+    var nodeAns = recursiveConsumePDA(getTransitionPDA(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,Stack,route);
     console.log(nodeAns)
     if(nodeAns){
         if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState && nodeAns.stack == 0){
-            swal("Nice!", "Cadena Aceptada", "success");
+            console.log("asd")
+            for(var i = 0; i < nodeAns.route.length; i++){
+                if(i == nodeAns.route.length-1){
+                    addAnimation(nodeAns.route[i].links,(i+1)*7,'red',true);
+                }else{
+                    addAnimation(nodeAns.route[i].links,(i+1)*7,'red',false);
+                }
+            }
         }else{
             swal("Opps", "Cadena Rechazada", "error");
         }
@@ -17,16 +25,30 @@ function consumeStringPDA(){
     $('#str_cadena').val('');
 };
 
+function addAnimation(link, time,color, last) {
+    setTimeout(function() {
+        link.changeColor(color);
+    }, 300 * time);
+    setTimeout(function() {
+        link.changeColor('black');
+    }, 400 * time);
+    if(last){
+        setTimeout(function() {
+            swal("Nice!", "Cadena Aceptada", "success");
+        }, 400 * time);
+    }
+};
 
-function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, Stack){
-    var tmp = Stack.concat()
-    console.log("a="+ActualPosString+","+Transitions[NextNode].node.isAcceptState+",stack="+tmp)
+function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume, Stack, Route){
+    var tmp = Stack.concat();
+    var routes = Route.concat();
+    //console.log("a="+ActualPosString+","+Transitions[NextNode].node.isAcceptState+",stack="+tmp)
     if(ActualPosString == LengthString  && Stack.length == 0){
-        console.log("asdsadasdasd")
         var ans = {
             'actualPos': ActualPosString,
             'node': Transitions[NextNode].node,
-            'stack': tmp.length
+            'stack': tmp.length,
+            'route': routes
         }
         return ans;
     }else if(ActualPosString<=LengthString){
@@ -44,16 +66,16 @@ function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthStrin
                 if(Transitions[NextNode].links[i].pushElement != '#'){
                     tmp.push(Transitions[NextNode].links[i].pushElement)
                 }
-                var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,tmp);
+                routes.push(Transitions[NextNode].links[i]);
+                var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,tmp,routes);
                 if(t){
                     console.log(t)
                     if(t.actualPos == LengthString && t.stack==0 && t.node.isAcceptState){
                         return t
                     }
                 }else{
-                    var tmp2 = tmp.concat()
                     //console.log(Transitions[NextNode].links[i].popElement+","+tmp[tmp.length-1]+","+Transitions[NextNode].links[i].pushElement)
-                    var t2 = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,tmp);
+                    var t2 = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,tmp,routes);
                     if(t2){
                         console.log(t2)
                         if(t2.actualPos == LengthString && t2.stack==0 && t2.node.isAcceptState){
@@ -77,7 +99,8 @@ function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthStrin
                 if(Transitions[NextNode].links[i].pushElement != '#'){
                     tmp.push(Transitions[NextNode].links[i].pushElement)
                 }
-                var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,tmp);
+                routes.push(Transitions[NextNode].links[i]);
+                var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString+1, LengthString, StringToConsume,tmp,routes);
                 if(t){
                     console.log(t)
                     if(t.actualPos == LengthString && t.stack==0 && t.node.isAcceptState){
@@ -98,7 +121,8 @@ function recursiveConsumePDA(Transitions, NextNode, ActualPosString, LengthStrin
                 if(Transitions[NextNode].links[i].pushElement != '#'){
                     tmp.push(Transitions[NextNode].links[i].pushElement)
                 }
-                var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume,tmp);
+                routes.push(Transitions[NextNode].links[i]);
+                var t = recursiveConsumePDA(Transitions, Transitions[NextNode].links[i].node.idNext, ActualPosString, LengthString, StringToConsume,tmp,routes);
                 if(t){
                     console.log(t)
                     if(t.actualPos == LengthString && t.stack==0 && t.node.isAcceptState){
