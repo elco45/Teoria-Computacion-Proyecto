@@ -450,7 +450,8 @@ function getTransition(){
 					for(var k = 0; k < tmp.length; k++){
 						transitions[i].links.push({
 							'symbol': tmp[k],
-							'node': links[j].nodeB
+							'node': links[j].nodeB,
+							'links': links[j]
 						})
 					}
 				}
@@ -460,7 +461,8 @@ function getTransition(){
 					for(var k = 0; k < tmp.length; k++){
 						transitions[i].links.push({
 							'symbol': tmp[k],
-							'node': links[j].node
+							'node': links[j].node,
+							'links': links[j]
 						})
 					}
 				}
@@ -654,7 +656,8 @@ function getTransitionPDA(){
 						'node': links[j].nodeB,
 						'input': tmp[0],
 						'popElement': tmp2[0],
-						'pushElement': tmp2[1]
+						'pushElement': tmp2[1],
+						'links': links[j]
 					})
 				}
 			}else if(links[j] instanceof SelfLink){
@@ -665,7 +668,8 @@ function getTransitionPDA(){
 						'node': links[j].node,
 						'input': tmp[0],
 						'popElement': tmp2[0],
-						'pushElement': tmp2[1]
+						'pushElement': tmp2[1],
+						'links': links[j]
 					})
 				}
 			}else if(links[j] instanceof StartLink){

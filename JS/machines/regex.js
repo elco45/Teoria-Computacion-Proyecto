@@ -21,16 +21,16 @@ function regexToDFA(){
 		var regParser = require('regparser');
 		var parser = new regParser.RegParser();
 		var input = str_regex;
-		  parser.reset(input);
-		  try { 
+		parser.reset(input);
+		try { 
 			var nfa = parser.parseToDFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
-			$('#modal_Title3').text('Regex to DFA: ');
+			$('#modal_Title3').text('Regex a DFA: ');
 			$("#vizGraphRegex").html(result); 
-		  } catch(e) {
+		} catch(e) {
 			$("#vizGraphRegex").html(e);
-		  }
-		
+		}
+		$("#vizModalRegex").modal();
 	}else{
 		vizText = "digraph g {node [shape=\"circle\"]; start [shape=Msquare]; start -> \"{0}\"; \"{0}\" [peripheries=2]; }";
 		$('#modal_Title3').text('Regex to DFA:');
@@ -40,6 +40,7 @@ function regexToDFA(){
 }
 
 function regexToNFA(){
+	console.log("asdasdas")
 	var initialNode = {};
 	var finalNodes = [];
     
@@ -53,12 +54,11 @@ function regexToNFA(){
 		  try { 
 			var nfa = parser.parseToNFA();
 			var result = Viz(nfa.toDotScript(), 'svg', 'dot');
-			$('#modal_Title3').text('Regex to NFA: ');
+			$('#modal_Title3').text('Regex a NFA: ');
 			$("#vizGraphRegex").html(result); 
 		  } catch(e) {
 			$("#vizGraphRegex").html(e);
 		  }
-		$("#vizGraphRegex").html('');
 		$("#vizModalRegex").modal();
 		
 		
