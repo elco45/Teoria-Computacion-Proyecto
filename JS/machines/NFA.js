@@ -18,9 +18,9 @@ function consumeStringNFA(){
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
                 for(var i = 0; i < nodeAns.route.length; i++){
                     if(i == nodeAns.route.length-1){
-                        addAnimation(nodeAns.route[i].links,i*7,'red',true);
+                        addAnimation(nodeAns.route[i].links,(i+1)*7,'red',true);
                     }else{
-                        addAnimation(nodeAns.route[i].links,i*7,'red',false);
+                        addAnimation(nodeAns.route[i].links,(i+1)*7,'red',false);
                     }
                 }
             }else{

@@ -10,9 +10,9 @@ function consumeStringDFA(){
 	        	console.log(isAccepted.route)
 	            for(var i = 0; i < isAccepted.route.length; i++){
                     if(i == isAccepted.route.length-1){
-                        addAnimation(isAccepted.route[i].links,i*7,'red',true);
+                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',true);
                     }else{
-                        addAnimation(isAccepted.route[i].links,i*7,'red',false);
+                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',false);
                     }
                 }
 	        }else{
