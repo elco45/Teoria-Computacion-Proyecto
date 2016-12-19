@@ -226,7 +226,7 @@ integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7
 
 					<div class="page-header">
                         <center>
-                            <h2><span class="glyphicon glyphicon-equalizer"></span> Teoría de la Computación<a href="index.html"><i aria-hidden="true" class="fa fa-home fa-3x" id="House"></i></a></h2>
+                            <h2><span class="glyphicon glyphicon-equalizer"></span> Teoría de la Computación<a href="../index.html"><i aria-hidden="true" class="fa fa-home fa-3x" id="House"></i></a></h2>
                         </center>
                     </div>
 
@@ -553,37 +553,37 @@ aria-labelledby="importPanelHeader">
 <!-- Tutorial -->
 <div id="tutorial" class="row">
   <section class="col-md-4 col-sm-6">
-    <h3>Try it out</h3>
+    <h3>Pruébelo</h3>
     <p>
-      <strong>Run</strong> the machine to see it in action.
-      At any time, you can <strong>step</strong> or <strong>pause</strong> to get a closer look,
-      or <strong>reset</strong> to start over.
+      <strong>Corra</strong> la máquina para verla en acción.
+      En cualquier punto, puede <strong>avanzar un paso</strong> o <strong>pausar</strong> para echar un mejor vistazo,
+      o <strong>reiniciar</strong> para volver a comenzar.
     </p>
-    <p>There are over a dozen different example machines to explore.</p>
+    <p>Hay más de una docena de máquinas diferentes de ejemplo que se pueden explorar.</p>
     <p>
-      Most of the examples take input. Experiment with different inputs to see what happens!
-      Edit the code and click <em>Load machine</em> to sync your changes.
+      La mayoría de los ejemplos toma una entrada. ¡Pruebe varias entradas para ver qué sucede!
+      Edite el código y haga click en <em>Load machine</em> para sincronizar sus cambios.
     </p>
     <section>
-      <h4>What’s going on?</h4>
-      <p>The colored circles are <em>states</em>. The squares underneath are <em>tape cells</em>.</p>
-      <p>The current state and tape cell are highlighted.</p>
-      <p>At each step, a Turing machine reads its current state and tape symbol,
-      and looks them up in its <em>transition table</em> for an instruction.
-      Each <em>instruction</em> does 3 things:</p>
+      <h4>¿Qué está pasando?</h4>
+      <p>Los círculos de colores son <em>estados</em>. Los cuadrados debajo son <em>celdas de la cinta</em>.</p>
+      <p>El estado actual y la celda de la cinta están resaltados.</p>
+      <p>En cada paso, una máquina de Turing lee su estado actual y símbolo de la cinta,
+      y busca en su <em>tabla de transiciones</em> una instrucción.
+      Cada <em>instrucción</em> hace 3 cosas:</p>
       <ol>
-        <li><strong>write</strong> a symbol to the current tape cell</li>
-        <li><strong>move</strong> to the left or right by one cell</li>
-        <li><strong>set</strong> the new state</li>
+        <li><strong>escribe</strong> un símbolo en la celda de la cinta actual</li>
+        <li><strong>se mueve</strong> a la izquierda o derecha una celda</li>
+        <li><strong>coloca</strong> el nuevo estado</li>
       </ol>
-      <p>That’s it!</p>
-      <p>This repeats step after step, until the machine reaches a combination of state and symbol
-        that don’t have an instruction defined. At that point it <em>halts</em>.
+      <p>¡Eso es todo!</p>
+      <p>Esto se repite paso a paso, hasta que la máquina alcanza una combinación de estado y símbolo
+        que no tiene una instrucción definida. En ese punto se <em>detiene</em>.
       </p>
     </section>
     <section>
-      <h4><a href="#tm-details" class="disclosure-triangle collapsed" role="button" data-toggle="collapse">
-        In more detail
+      <h4><a href="#" class="disclosure-triangle collapsed" role="button" data-toggle="collapse">
+        En más detalle
       </a></h4>
       <div id="tm-details" class="panel-group collapse" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -696,32 +696,31 @@ aria-labelledby="importPanelHeader">
       </div>
     </section>
     <p>
-      For a very readable introduction to Turing machines, including their significance and interesting implications,
-      see the excellent <a href="http://plato.stanford.edu/entries/turing-machine" target="_blank">entry in the Stanford Encyclopedia of Philosophy</a>.
+      Para una introducción muy comprensible sobre las máquinas de Turing, incluyendo su importancia e implicaciones interesantes,
+      vea el excelente <a href="http://plato.stanford.edu/entries/turing-machine" target="_blank">artículo en la Stanford Encyclopedia of Philosophy</a>.
     </p>
   </section>
 
 
 
   <section class="col-md-4 col-sm-6">
-    <h3>Make your own</h3>
-    <p>Make spinoffs from the examples or your own creations by using
+    <h3>Haga el suyo</h3>
+    <p>Haga derivados de los ejemplos, o los suyos propios usando
       <i>Edit</i> &gt; <i>Duplicate document</i>.
-    You can also start from scratch with a new blank document.</p>
-    <p>All it takes to describe a Turing machine is a start state, blank symbol, and transition table.</p>
-    <h4>Example</h4>
+    También puede comenzar de cero con un documento en blanco.</p>
+    <h4>Ejemplo</h4>
     <pre>
-# Adds 1 to a binary number.
+# Agrega 1 a un número binario.
 input: '1011'
 blank: ' '
 start state: right
 table:
-  # scan to the rightmost digit
+  # se mueve hasta el dígito más a la derecha
   right:
     1: R
     0: R
     ' ': {L: carry}
-  # then carry the 1
+  # luego lleva el 1
   carry:
     1: {write: 0, L}
     0: {write: 1, L: done}
@@ -729,85 +728,56 @@ table:
   done:
 </pre>
     <p>
-      Here the states are <code>right</code>, <code>carry</code>, and <code>done</code>.<br>
-      The symbols are '<code>1</code>', '<code>0</code>', and '<code> </code>'.
+      Aquí los estados son <code>right</code>, <code>carry</code>, and <code>done</code>.<br>
+      Los símbolos son '<code>1</code>', '<code>0</code>', and '<code> </code>'.
     </p>
     <p>
-      We designate one state the <i>start state</i>,
-      and one symbol the <i>blank</i> symbol (found on unmarked tape cells).
+      Designamos a un estado como el <i>estado inicial</i>,
+      y un símbolo de <i>vacío</i> (encontrado en las celdas de la cinta sin marcar).
     </p>
     <p>
-      A state and a symbol together map to an instruction.
-      In the <code>carry</code> state, for instance, the symbol <code>1</code> maps to the instruction <code>{write: 0, L}</code>.
-      When no instruction is defined, as in the <code>done</code> state, the machine halts.
+      Un estado y un símbolo juntos "mapean" a una instrución.
+      En el estado <code>carry</code> , por ejemplo, el símbolo <code>1</code> mapea a la instruction <code>{write: 0, L}</code>.
+      Cuando no se define una instrucción, como en el estado <code>done</code> , la máquina se detiene.
     </p>
-    <h4>Instruction format</h4>
-    The general form of an instruction has three parts:
+    <h4>Formato de instrucciones</h4>
+    La forma general de una instrucción tiene 3 partes:
     <pre>{write: <var>symbol</var>, <var>move</var>: <var>state</var>}</pre>
     <ul>
-      <li><code>{write: 1, L: done}</code> writes the symbol <code>1</code>,
-        moves the tape head left (<code>L</code>), and goes to the <code>done</code> state.
+      <li><code>{write: 1, L: done}</code> escribe el símbolo <code>1</code>,
+        se mueve la cinta hacia la izquierda (<code>L</code>), y va al estado <code>done</code>.
       </li>
     </ul>
-    <p>For brevity, you can omit the symbol and state if they stay the same.</p>
+    <p>Por brevedad, puede omitir el símbolo y el estado si se mantienen igual.</p>
     <ul>
-      <li><code>{L: carry}</code> writes the same symbol that was read,
-        moves the tape head left, and goes to the <code>carry</code> state.</li>
-      <li><code>R</code> (shorthand for {R}) simply moves the tape head right.
-        It writes back the same symbol and stays in the same state.</li>
+      <li><code>{L: carry}</code> escribe el mismo símbolo que se leyó,
+        se mueve a la izquierda, y va al estado <code>carry</code>.</li>
+      <li><code>R</code> (otra forma de decir {R}) simplemente se mueve hacia la derecha.
+        Escribe el mismo símbolo y se mantiene en el mismo estado.</li>
     </ul>
   </section>
 
 
 
   <div class="col-md-4 col-sm-12">
-    <h3>Tips</h3>
+    <h3>Consejos</h3>
     <div class="row">
     <div class="col-sm-6 col-md-12">
-      <h4>Editor keyboard shortcuts</h4>
+      <h4>Atajos de teclado para el editor</h4>
       <table id="kbdShortcutTable" class="editor-shortcuts table">
       </table>
       <noscript>
-        <p>The code editor and keyboard shortcuts require that JavaScript be enabled.</p>
+        <p>El editor de código y los atajos de teclado requieren que Javascript esté habilitado.</p>
       </noscript>
-      <p>More keyboard shortcuts are available on the <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">full list</a>.</p>
+      <p>Más atajos de teclado están disponibles en la <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">lista completa</a>.</p>
     </div>
-    <div class="col-sm-6 col-md-12">
-      <h4>Misc. tips</h4>
-      <ul id="misc-tips-list">
-        <li>Drag or click a state node to fix it in place; double-click to release it.</li>
-        <li>Don’t hesitate to duplicate.
-          Use <i>Edit</i> &gt; <i>Duplicate document</i> to create a snapshot of your current document whenever you’re about to make a larger edit.</li>
-        <li>Changes are autosaved to your browser’s local storage.
-          They will stay there between sessions, but be careful when clearing browser data. You can create backups by downloading your documents.</li>
-        <li>Incognito / Private Browsing mode uses a separate temporary storage. This is useful for importing or editing documents that you want to try but don’t want to keep.</li>
-      </ul>
-      <a class="disclosure-triangle collapsed" role="button" data-toggle="collapse" href="#aboutSyntax">
-        More about the syntax
-      </a>
-      <div id="aboutSyntax" class="collapse">
-        <p>The code is written in <a href="https://en.wikipedia.org/wiki/YAML" target="_blank"><abbr>YAML</abbr></a> 1.2, a general-purpose data format.</p>
-        <p>
-          If you’re familiar with JSON, YAML is similar, but designed to be more readable.
-          Mappings can use indent instead of brackets <code>{}</code>, and strings can often be included directly without quotes.
-        </p>
-        <p>
-          Some strings need to be quoted: for example, those that start/end with a space, or include certain characters that have special meaning in YAML.
-          If a string is causing problems, try putting quotes around it.
-        </p>
-      </div>
-    </div>
+
     </div>
   </div>
 </div>
 </div>
 
 <footer class="page-footer">
-  <a href="https://github.com/aepsilon/turing-machine-viz" target="_blank" title="View on GitHub">
-    <svg class="octicon octicon-mark-github" height="24" width="24" viewBox="0 0 16 16" version="1.1" aria-hidden="true">
-      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59 0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.82-0.01-1.49-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82 0.64-0.18 1.32-0.27 2-0.27 0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38C13.71 14.53 16 11.53 16 8 16 3.58 12.42 0 8 0z" />
-    </svg>
-  </a>
 </footer>
 
 <!-- Dialog for Import -->
