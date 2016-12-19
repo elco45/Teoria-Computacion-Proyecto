@@ -357,7 +357,60 @@ function recursiveFindE(Transitions, Node,NextNode, ArrayE,InitialNode){
 };
 
 function NFAtoREGEX(){
+    var Transitions = getTransition();
+    var InitialNode = getInitialNode();
+    var FinalNodes = getFinalNodes();
+    var ArrayE = new Array;
+    var tempArrayE = new Array;
+    var Childs=0;
+    var Nodes = getNodes();
+    console.log(Transitions);
 
+    for(var i=0; i<Nodes.length;i++){
+
+        Nodes[i].setMarked(false);
+
+    }
+
+    for(var i=0;i< FinalNodes.length;i++){
+
+       console.log(FinalNodes);
+       console.log(getAllPaths(Transitions,InitialNode,InitialNode.idNext, ArrayE,InitialNode,FinalNodes[i],tempArrayE,Childs));
+       console.log(ArrayE);  
+    }
+
+   
+
+};
+
+function getAllPaths(Transitions, Node,NextNode, ArrayE,InitialNode,FinalNode,tempArrayE,Childs){
+    console.log("Estoy en NODO: "+Node.text);
+    for(var i=0; i<Transitions[NextNode].links.length;i++){
+        if(Transitions[NextNode].links[i].node.marked==false &&Transitions[NextNode].links[i].node.text!=Node.text){
+            console.log("No carmado");
+            console.log(Transitions[NextNode].links[i].node.text);
+                if(!arrayContains(Transitions[NextNode].links[i].node.text),tempArrayE){
+                    tempArrayE.push(Transitions[NextNode].links[i].node.text);                    
+                    var SaveStates= getAllPaths(Transitions, Transitions[Transitions[NextNode].links[i].node.idNext].node,Transitions[NextNode].links[i].node.idNext, ArrayE,InitialNode,FinalNode,tempArrayE,Childs);
+                    if(SaveStates!=null){
+                        return SaveStates;
+                    }                   
+                }
+  
+            }else{
+                console.log("Nodo Ya marcado");
+            }
+
+         Transitions[NextNode].node.setMarked(true);
+            
+     
+    }
+    if(Transitions[NextNode].node.text==FinalNode.text){
+        tempArrayE.push(InitialNode.text);
+        tempArrayE= NoDuplicates(tempArrayE);
+        ArrayE.push(tempArrayE);
+        tempArrayE= new Array;
+    }
 
 
 };
