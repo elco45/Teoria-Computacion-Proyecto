@@ -582,8 +582,8 @@ aria-labelledby="importPanelHeader">
       </p>
     </section>
     <section>
-      <h4><a href="#tm-details" class="disclosure-triangle collapsed" role="button" data-toggle="collapse">
-        In more detail
+      <h4><a href="#" class="disclosure-triangle collapsed" role="button" data-toggle="collapse">
+        En más detalle
       </a></h4>
       <div id="tm-details" class="panel-group collapse" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -696,32 +696,31 @@ aria-labelledby="importPanelHeader">
       </div>
     </section>
     <p>
-      For a very readable introduction to Turing machines, including their significance and interesting implications,
-      see the excellent <a href="http://plato.stanford.edu/entries/turing-machine" target="_blank">entry in the Stanford Encyclopedia of Philosophy</a>.
+      Para una introducción muy comprensible sobre las máquinas de Turing, incluyendo su importancia e implicaciones interesantes,
+      vea el excelente <a href="http://plato.stanford.edu/entries/turing-machine" target="_blank">artículo en la Stanford Encyclopedia of Philosophy</a>.
     </p>
   </section>
 
 
 
   <section class="col-md-4 col-sm-6">
-    <h3>Make your own</h3>
-    <p>Make spinoffs from the examples or your own creations by using
+    <h3>Haga el suyo</h3>
+    <p>Haga derivados de los ejemplos, o los suyos propios usando
       <i>Edit</i> &gt; <i>Duplicate document</i>.
-    You can also start from scratch with a new blank document.</p>
-    <p>All it takes to describe a Turing machine is a start state, blank symbol, and transition table.</p>
-    <h4>Example</h4>
+    También puede comenzar de cero con un documento en blanco.</p>
+    <h4>Ejemplo</h4>
     <pre>
-# Adds 1 to a binary number.
+# Agrega 1 a un número binario.
 input: '1011'
 blank: ' '
 start state: right
 table:
-  # scan to the rightmost digit
+  # se mueve hasta el dígito más a la derecha
   right:
     1: R
     0: R
     ' ': {L: carry}
-  # then carry the 1
+  # luego lleva el 1
   carry:
     1: {write: 0, L}
     0: {write: 1, L: done}
@@ -729,17 +728,17 @@ table:
   done:
 </pre>
     <p>
-      Here the states are <code>right</code>, <code>carry</code>, and <code>done</code>.<br>
-      The symbols are '<code>1</code>', '<code>0</code>', and '<code> </code>'.
+      Aquí los estados son <code>right</code>, <code>carry</code>, and <code>done</code>.<br>
+      Los símbolos son '<code>1</code>', '<code>0</code>', and '<code> </code>'.
     </p>
     <p>
-      We designate one state the <i>start state</i>,
-      and one symbol the <i>blank</i> symbol (found on unmarked tape cells).
+      Designamos a un estado como el <i>estado inicial</i>,
+      y un símbolo de <i>vacío</i> (encontrado en las celdas de la cinta sin marcar).
     </p>
     <p>
-      A state and a symbol together map to an instruction.
-      In the <code>carry</code> state, for instance, the symbol <code>1</code> maps to the instruction <code>{write: 0, L}</code>.
-      When no instruction is defined, as in the <code>done</code> state, the machine halts.
+      Un estado y un símbolo juntos "mapean" a una instrución.
+      En el estado <code>carry</code> , por ejemplo, el símbolo <code>1</code> mapea a la instruction <code>{write: 0, L}</code>.
+      Cuando no se define una instrucción, como en el estado <code>done</code> , la máquina se detiene.
     </p>
     <h4>Instruction format</h4>
     The general form of an instruction has three parts:
