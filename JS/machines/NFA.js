@@ -383,24 +383,34 @@ function NFAtoREGEX(){
 
             graph =new Graph(); // creates a graph
             for(var i=0; i<Nodes.length;i++){
-
                node=graph.addNode(Transitions[i].node.text);
 
             }
-
+            var FinalNode =null;
             for(var X=0; X<graph.NODES.length;X++){
                 for(var i=0; i<Transitions.length;i++){
                     if(graph.NODES[X].name==Transitions[i].node.text){
-                         for(var j=0;j<Transitions[i].links.length;j++){           
+                         graph.NODES[X].finalState=Transitions[i].node.isAcceptState;                        
+                         for(var j=0;j<Transitions[i].links.length;j++){         
                                 graph.NODES[i].addEdge(Transitions[i].links[j].node.text,Transitions[i].links[j].symbol);
                          }
                     }
+                }
+
+                if(graph.NODES[X].finalState==true){
+                    FinalNode=graph.NODES[X];
+
                 }
 
             }
             console.log(graph);
             console.log(graph.NODES.length);     
             var Expression="";
+            console.log("==============================");   
+            console.log(graph.NODES[0]);   
+            getPaths(graph.NODES[0],FinalNode,tempArrayE,ArrayE,graph);
+            console.log(ArrayE);
+            console.log("==============================");
             if(FinalNodes.length==1){
                 //Only one Final states
                 for(var i=0;i<graph.NODES.length;i++){
@@ -419,7 +429,7 @@ function NFAtoREGEX(){
                 console.log("NODE PODERS");
             }
             console.log(graph);
-            console.log(dfsMOD(graph));
+            console.log(dfs(graph,InitialNode.idNext));
 
    }
 };
@@ -456,6 +466,60 @@ function getAllPaths(Transitions, Node,NextNode, ArrayE,InitialNode,FinalNode,te
 
 };
 
+function getPaths(CurrentNode,FinalNode,Path,Paths,graph){
+  if(CurrentNode.marked==false &&!(CurrentNode.visited==CurrentNode.adjList.length-1)){ 
+        CurrentNode.marked=true;
+        if(CurrentNode.finalState==true){
+            console.log("Estado Final Agregar Ruta");
+            Paths.push(Path);
+        }
+        if(CurrentNode.adjList.length>0){
+           Path.push(CurrentNode);
+           console.log("Estoy en : "+CurrentNode.name);  
+           for(var i=0;i<CurrentNode.adjList.length;i++){
+                console.log(findNodeADJLIST(CurrentNode.adjList[i],graph).finalState);
+                if(findNodeADJLIST(CurrentNode.adjList[i],graph).finalState==true){
+                    console.log("Estado Final Agregar Ruta");
+                    Paths.push(Path);
+                }else{
+                    console.log("VOY PARA : "+CurrentNode.adjList[i]);
+                    var go = getPaths(findNodeADJLIST(CurrentNode.adjList[i],graph),FinalNode,Path,Paths,graph);
+                    if(go){
+                         return go;
+                    }
+                   
+
+                }
+                console.log("Aumente de : "+CurrentNode.name);
+                CurrentNode.visited=CurrentNode.visited+1;
+           }
+
+        }else {
+            console.log("No más Hijos");
+            if(Nodes[CurrentNode].finalState==true){
+                Paths.push(Path);
+                Path.pop();
+            }else{
+                Path.pop();
+            }
+
+        }
+}
+
+
+};
+
+function findNodeADJLIST(Name,graph){
+
+    for(var i=0;i<graph.NODES.length;i++){
+        if(graph.NODES[i].name==Name){
+            return  graph.NODES[i];
+        }
+
+    }
+
+};
+
 function JoinTransitions(Transitions){
     var newString="";
     var Split =null;
@@ -465,7 +529,7 @@ function JoinTransitions(Transitions){
             Split=Transitions[i].links[k].symbol.split(",");
             if(Split.length>1){
                 for(var j=0; j<Split.length;j++){
-                    newString+=Split[j]+"+";
+                    newString+=Split[j]+"|";
                 }
                 newString=newString.slice(0, -1);
                 Transitions[i].links[k].symbol="("+newString+")";
@@ -487,4 +551,3 @@ function selfTransitios(Transitions){
     }
 
 };
-
