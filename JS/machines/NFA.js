@@ -91,6 +91,7 @@ function recursiveConsumeNFA(Transitions, NextNode, ActualPosString, LengthStrin
 
 function NFAtoDFA(){
     if(validateAutomataEstructure()){
+        $('#str_validate').text('NFA definido'); 
         var Transitions=getTransition();
         var InitialNode=getInitialNode();
         var FinalNodes  =getFinalNodes();

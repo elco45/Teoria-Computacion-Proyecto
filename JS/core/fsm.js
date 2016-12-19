@@ -881,6 +881,7 @@ function clearCanvas(){
 	nodes = [];
 	links = [];
 	canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+	$('#str_validate').text(''); 
 }
 
 function restoreBackup(exampleName) {
