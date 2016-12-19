@@ -11,7 +11,14 @@ function consumeStringNFA(){
     if(validateAutomataEstructure()){
         $('#str_validate').text('NFA definido'); 
         var stringToConsume = $('#str_cadena').val();
-        var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,new Array());
+		var route = new Array();
+        var nodeAns = recursiveConsumeNFA(getTransition(),getInitialNode().idNext,0,stringToConsume.length,stringToConsume,route);
+
+		for(var i = 0; i < route.length; i++){
+			route[i].node.changeColor(canvas.getContext('2d'));
+			pause(1000, route[i].node);
+		}
+		
         if(nodeAns){
             if(nodeAns.actualPos == stringToConsume.length && nodeAns.node.isAcceptState){
                 swal("Nice!", "Cadena Aceptada", "success");
@@ -27,9 +34,14 @@ function consumeStringNFA(){
     }
 };
 
+function pause( time, node ){
+    var sDialogScript = 'window.setTimeout( function () {  }, ' + time + ');';
+	alert("Estado: " + node.text);
+};
 
-function recursiveConsumeNFA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume,Route){
-    var route = Route.concat();
+
+function recursiveConsumeNFA(Transitions, NextNode, ActualPosString, LengthString, StringToConsume,route){
+    //route = route.concat();
     if(ActualPosString == LengthString && Transitions[NextNode].node.isAcceptState){
         var ans = {
             'actualPos': ActualPosString,
