@@ -1,28 +1,33 @@
 function consumeStringDFA(){
+	var Transitions = getTransition();
 	if(validateAutomataEstructure()){
-	    $('#str_validate').text('DFA definido'); 	
-	    var stringToConsume = $('#str_cadena').val();
-	    var trans = getTransition();
-	    var route = new Array();
-		var isAccepted = recursiveConsumeDFA(trans,getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0,route);
-	    if(isAccepted){
-	        if(isAccepted.node.isAcceptState){
-	        	console.log(isAccepted.route)
-	            for(var i = 0; i < isAccepted.route.length; i++){
-                    if(i == isAccepted.route.length-1){
-                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',true);
-                    }else{
-                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',false);
-                    }
-                }
-	        }else{
-	            swal("Opps!", "Cadena Rechazada", "error");
-	        }
-	    }else{
-	          
-	           swal("Opps", "Cadena Rechazada", "error");
-	    }
-		$('#str_cadena').val('');
+		if(!Ambiguos(Transitions)){
+		    $('#str_validate').text('DFA definido'); 	
+		    var stringToConsume = $('#str_cadena').val();
+		    var trans = getTransition();
+		    var route = new Array();
+			var isAccepted = recursiveConsumeDFA(trans,getInitialNode().idNext,0,stringToConsume.length,stringToConsume,0,route);
+		    if(isAccepted){
+		        if(isAccepted.node.isAcceptState){
+		        	console.log(isAccepted.route)
+		            for(var i = 0; i < isAccepted.route.length; i++){
+	                    if(i == isAccepted.route.length-1){
+	                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',true);
+	                    }else{
+	                        addAnimation(isAccepted.route[i].links,(i+1)*7,'red',false);
+	                    }
+	                }
+		        }else{
+		            swal("Opps!", "Cadena Rechazada", "error");
+		        }
+		    }else{
+		          
+		           swal("Opps", "Cadena Rechazada", "error");
+		    }
+			$('#str_cadena').val('');
+		}else{
+			$('#str_validate').text('No puede existir Abmiguedad en un DFA'); 	
+		}
 	}
 };
 
