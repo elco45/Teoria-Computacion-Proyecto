@@ -60,6 +60,9 @@ function NODE(Name){
 	this.weight=[];
 	this.addEdge=addEdge;
 	this.compare=compare;
+	this.finalState=false;
+	this.marked=false;
+	this.visited=0;
 	function addEdge(neighbour,weight){
 		this.adjList.push(neighbour);
 		this.weight.push(weight);	
@@ -70,6 +73,10 @@ function NODE(Name){
 	}
 	function compare(node2){
 		return this.weight-node2.weight;
+	}
+
+	function setFinalState(State){
+		this.finalState=State;
 	}
 }
 function bfs(graph){
@@ -97,10 +104,10 @@ function bfs(graph){
 }
 
 
-function dfs(graph){
+function dfs(graph,index){
 	ans=[];
 	traversedNodes=[];
-	traversedNodes.push(graph.NODES[0]);
+	traversedNodes.push(graph.NODES[index]);
 	allNodes=graph.getAllNodes();
 	marked={};
 	while(traversedNodes.length!=0){
@@ -110,7 +117,7 @@ function dfs(graph){
 		console.log(v);
 		ans.push(v);
 		for (var i=0;i<adjList.length;i++){
-			u=adjList[i];
+			u=findNode(adjList[i],graph);
 			if(marked[u.name]!=true){
 				traversedNodes.push(u);
 				marked[u.name]=true;
@@ -120,28 +127,17 @@ function dfs(graph){
 	return ans;
 }
 
-function dfsMOD(graph){
-	ans=[];
-	traversedNodes=[];
-	traversedNodes.push(graph.NODES[0]);
-	allNodes=graph.getAllNodes();
-	marked={};
-	while(traversedNodes.length!=0){
-		var v=traversedNodes.pop();
-		marked[v.name]=true;
-		adjList=v.adjList;
-		console.log(v);
-		ans.push(v);
-		for (var i=0;i<adjList.length;i++){
-			u=adjList[i];
-			if(marked[u.name]!=true){
-				traversedNodes.push(u);
-				marked[u.name]=true;
-			}
-		}			
+function findNode(Name,graph){
+
+	for(var i=0;i<graph.NODES.length;i++){
+		if(graph.NODES[i].name==Name){
+			return	graph.NODES[i];
+		}
+
 	}
-	return ans;
-}
+
+};
+
 
 function binaryHeap(){
 	this.NODES=[];
