@@ -115,3 +115,128 @@ function DFAtoNFA(){
 		}
 	}
 }
+
+
+function DFAtoREGEX(){
+	var Transitions= getTransition();
+ if(validateAutomataEstructure()){
+ 	if(!Ambiguos(Transitions)){
+	            $('#str_validate').text('NFA definido'); 
+	            var Transitions = getTransitionNoSplit();
+	            var InitialNode = getInitialNode();
+	            var FinalNodes = getFinalNodes();
+	            var ArrayE = new Array;
+	            var tempArrayE = new Array;
+	            var Childs=0;
+	            var Nodes = getNodes();
+	            JoinTransitions(Transitions);
+	            selfTransitios(Transitions);   
+	            console.log(Transitions);
+
+	            graph =new Graph(); // creates a graph
+	            for(var i=0; i<Nodes.length;i++){
+
+	               node=graph.addNode(Transitions[i].node.text);
+
+	            }
+
+	            for(var X=0; X<graph.NODES.length;X++){
+	                for(var i=0; i<Transitions.length;i++){
+	                    if(graph.NODES[X].name==Transitions[i].node.text){
+	                         for(var j=0;j<Transitions[i].links.length;j++){           
+	                                graph.NODES[i].addEdge(Transitions[i].links[j].node.text,Transitions[i].links[j].symbol);
+	                         }
+	                    }
+	                }
+
+	            }
+	            console.log(graph);
+	            console.log(graph.NODES.length);     
+	            var Expression="";
+	            if(FinalNodes.length==1){
+	                //Only one Final states
+	                for(var i=0;i<graph.NODES.length;i++){
+	                    for(var j=0;j<graph.NODES[i].weight.length;j++){
+	                        Expression+=graph.NODES[i].weight[j];
+	                    }
+
+	                    
+	                }
+
+	                console.log(Expression);
+	                $('#str_expresion').text(Expression);
+	                Expression="";
+	            }else{
+
+	                console.log("NODE PODERS");
+	            }
+
+	   }else{
+			$('#str_validate').text('No puede existir Abmiguedad en un DFA'); 
+	   }
+	}
+};
+
+function getAllPaths(Transitions, Node,NextNode, ArrayE,InitialNode,FinalNode,tempArrayE,Childs){
+    console.log("Estoy en NODO: "+Node.text);
+    for(var i=0; i<Transitions[NextNode].links.length;i++){
+        if(Transitions[NextNode].links[i].node.marked==false &&Transitions[NextNode].links[i].node.text!=Node.text){
+            console.log("No carmado");
+            console.log(Transitions[NextNode].links[i].node.text);
+                if(!arrayContains(Transitions[NextNode].links[i].node.text),tempArrayE){
+                    tempArrayE.push(Transitions[NextNode].links[i].node.text);                    
+                    var SaveStates= getAllPaths(Transitions, Transitions[Transitions[NextNode].links[i].node.idNext].node,Transitions[NextNode].links[i].node.idNext, ArrayE,InitialNode,FinalNode,tempArrayE,Childs);
+                    if(SaveStates!=null){
+                        return SaveStates;
+                    }                   
+                }
+  
+            }else{
+                console.log("Nodo Ya marcado");
+            }
+
+         Transitions[NextNode].node.setMarked(true);
+            
+     
+    }
+    if(Transitions[NextNode].node.text==FinalNode.text){
+        tempArrayE.push(InitialNode.text);
+        tempArrayE= NoDuplicates(tempArrayE);
+        ArrayE.push(tempArrayE);
+        tempArrayE= new Array;
+    }
+
+
+};
+
+function JoinTransitions(Transitions){
+    var newString="";
+    var Split =null;
+    for(var i =0 ; i<Transitions.length;i++){
+        console.log(Transitions[i]);
+        for(var k=0; k<Transitions[i].links.length;k++){
+            Split=Transitions[i].links[k].symbol.split(",");
+            if(Split.length>1){
+                for(var j=0; j<Split.length;j++){
+                    newString+=Split[j]+"+";
+                }
+                newString=newString.slice(0, -1);
+                Transitions[i].links[k].symbol="("+newString+")";
+                newString="";   
+            }
+        }
+    }
+
+};
+
+function selfTransitios(Transitions){
+
+    for(var i =0 ; i<Transitions.length;i++){
+        for(var k=0; k<Transitions[i].links.length;k++){
+            if(Transitions[i].links[k].node.text==Transitions[i].node.text){
+                Transitions[i].links[k].symbol=Transitions[i].links[k].symbol+"*";   
+            }
+        }
+    }
+
+};

@@ -34,8 +34,11 @@
 				  <button type="button" class="btn btn-success btn-md" id ="MarginButton" onclick="DFAtoNFA()" >Transformar a NFA</button>	
 		        </div>
 		        <div class="form-group col-lg-4 col-md-8">
-				  <button type="button" class="btn btn-warning btn-md" id ="MarginButton" onclick="DFAtoRegex()">Transformar a Regex</button>	
-		        </div>			        
+				  		<button type="button" class="btn btn-warning btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id ="MarginButton" onclick="DFAtoREGEX()">Transformar a Regex</button>					       	
+			        	<div class="dropdown-menu">
+			        		<center><strong><label id="str_expresion">...</label></strong></center>
+			        	</div>
+	        	</div>				        
 		      </div>
 		    </div>
 		  </div>		  
