@@ -66,17 +66,47 @@ var recursiveConsumeDFA = function(Transitions, NextNode, ActualPosString, Lengt
     }
 }
 
+function Ambiguos(Transitions){
+
+	
+	for(var i=0; i<Transitions.length;i++){
+		var veredicto=false;
+		var nodeAlphabet= new Array;
+		for(var j=0;j<Transitions[i].links.length;j++){
+			if(!arrayContains(Transitions[i].links[j].symbol,nodeAlphabet)){
+				nodeAlphabet.push(Transitions[i].links[j].symbol);
+			}else{
+				veredicto=true;
+			}
+
+		}
+		if(veredicto){
+    		return true;
+		}
+
+	}
+	return false;
+};
+
 function DFAtoNFA(){
-	var trans = getTransition();
-    var init = getInitialNode();
-    var fin = getFinalNodes();
-    $("#modal_Title1").text('Before(DFA)');
-    $("#modal_Title2").text('After(NFA)');
-    $("#vizGraphBefore").html(drawGraphDFA(init, trans, fin));
-    $("#vizGraphAfter").html(drawGraph(init, trans, fin));
-    $("#vizModal").modal();
-    $(".modal-wide").on("show.bs.modal", function() {
-	  var height = $(window).height() - 200;
-	  $(this).find(".modal-body").css("max-height", height);
-	});
+	var Transitions = getTransition();
+	if(validateAutomataEstructure()){
+		if(!Ambiguos(Transitions)){
+		    $('#str_validate').text('DFA definido'); 
+			var trans = getTransition();
+		    var init = getInitialNode();
+		    var fin = getFinalNodes();
+		    $("#modal_Title1").text('Before(DFA)');
+		    $("#modal_Title2").text('After(NFA)');
+		    $("#vizGraphBefore").html(drawGraphDFA(init, trans, fin));
+		    $("#vizGraphAfter").html(drawGraph(init, trans, fin));
+		    $("#vizModal").modal();
+		    $(".modal-wide").on("show.bs.modal", function() {
+			  var height = $(window).height() - 200;
+			  $(this).find(".modal-body").css("max-height", height);
+			});
+		}else{
+			$('#str_validate').text('No puede existir Abmiguedad en un DFA'); 
+		}
+	}
 }
