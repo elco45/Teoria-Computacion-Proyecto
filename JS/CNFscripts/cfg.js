@@ -42,7 +42,7 @@ window.addEventListener("load", init, false);
 let mainContainer;
 
 function init() {
-  mainContainer = document.getElementById("mainContainer");
+  mainContainer = document.getElementById("str_cfg");
   mainContainer.addEventListener("dom-change", ready, false);
 }
 
@@ -95,9 +95,9 @@ function evaluateCFG(){
 function toCNF(){
 	init();
 	var myString = ``;
-	myString = myString + document.getElementById("mainContainer").value;
+	myString = myString + document.getElementById("str_cfg").value;
 	mainContainer.rulesValue = myString;
-	console.log(document.getElementById("mainContainer").value);
+	console.log(document.getElementById("str_cfg").value);
 	process();
 }
 
@@ -145,6 +145,10 @@ function process() {
   //mainContainer.$.lengthReduced.style.setProperty("height", `${padding + lineHeight * mainContainer.$.lengthReduced.firstChild.children.length}px`);
   
   console.log(grammar);
+  
+  if(grammar.length!=0){
+	  mainContainer.value = grammar;
+  }
   
   //removeAllChildren(mainContainer.$.pyramid);
   //removeAllChildren(mainContainer.$.deduction);
