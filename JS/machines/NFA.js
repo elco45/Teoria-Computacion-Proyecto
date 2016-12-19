@@ -338,3 +338,9 @@ function recursiveFindE(Transitions, Node,NextNode, ArrayE,InitialNode){
     }
      
 };
+
+function NFAtoREGEX(){
+
+
+
+};
