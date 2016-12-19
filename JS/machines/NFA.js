@@ -39,11 +39,11 @@ function addAnimation(link, time,color, last) {
     }, 300 * time);
     setTimeout(function() {
         link.changeColor('black');
-    }, 400 * time);
+    }, 380 * time);
     if(last){
         setTimeout(function() {
             swal("Nice!", "Cadena Aceptada", "success");
-        }, 400 * time);
+        }, 380 * time);
     }
 };
 
